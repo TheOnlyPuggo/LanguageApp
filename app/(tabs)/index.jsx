@@ -1,14 +1,30 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import LessonBar from '../../components/LessonBar';
+import LessonData from '../../data/lessons.json';
 
 const LearningPage = () => {
+  var lessons = [];
+
   return (
     <View>
       <Text style={styles.title}>LEARN</Text>
+      <ScrollView>
+        {
+          LessonData.map((lesson) => (
+            <LessonBar
+              key={lesson.id}
+              title={lesson.title}
+              desc={lesson.desc}
+              lessonLocked={lesson.locked}
+            />
+          ))
+        }
+      </ScrollView>
     </View>
   )
 }
     
-export default LearningPage
+export default LearningPage;
 
 const styles = StyleSheet.create({
   title: {
@@ -20,5 +36,6 @@ const styles = StyleSheet.create({
     textShadowColor: 'rgba(255, 122, 21, 0.75)',
     textShadowOffset: {width: 0, height: 2},
     textShadowRadius: 1,
+    marginBottom: 24,
   }
-})
+});
