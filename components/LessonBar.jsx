@@ -1,13 +1,25 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { useRouter } from 'expo-router';
 
 const LessonBar = (props) => {
     const lessonLocked = props.lessonLocked;
     let button;
 
+    const router = useRouter();
+
     if (!lessonLocked) {
         button = (
-            <TouchableOpacity style={styles.custom_button_unlocked}>
+            <TouchableOpacity style={styles.custom_button_unlocked} onPress={
+                () => {
+                    router.push({
+                        pathname: 'lessonpage',
+                        params: {
+                            title: props.title,
+                        }
+                    })
+                }
+            }>
                 <Text style={styles.button_text_unlocked}>Start</Text>
             </TouchableOpacity>
         );
@@ -35,7 +47,7 @@ export default LessonBar;
 
 const styles = StyleSheet.create({
     message_box: {
-        backgroundColor: "rgba(255, 214, 152, 0.84)",
+        backgroundColor: "rgba(255, 199, 116, 0.84)",
         paddingVertical: 6,
         paddingHorizontal: 24,
         borderRadius: 16,

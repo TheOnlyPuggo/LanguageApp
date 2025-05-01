@@ -1,3 +1,4 @@
+import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import LessonBar from '../../components/LessonBar';
 import LessonData from '../../data/lessons.json';
