@@ -26,11 +26,11 @@ const lessonpage = () => {
         lessonBody = (
             <View style={styles.lesson_body}>
                 <View style={styles.lesson_content}>
-                    <Text style={styles.lesson_text}>Kalaw Kawaw Ya Word</Text>
+                    <Text style={styles.lesson_text}>Kalaw Kawaw Ya</Text>
                     <View style={styles.learn_word_container}>
                         <Text style={styles.learn_word}>{currentLesson.lesson_words[currentWordIndex].kky_word}</Text>
                     </View>
-                    <Text style={styles.lesson_text}>English Word</Text>
+                    <Text style={styles.lesson_text}>English</Text>
                     <View style={styles.learn_word_container}>
                         <Text style={styles.learn_word}>{currentLesson.lesson_words[currentWordIndex].eng_word}</Text>
                     </View>
@@ -41,7 +41,7 @@ const lessonpage = () => {
                         setCurrentWordIndex(currentWordIndex + 1);
                     }
                 }}>
-                    <Text style={styles.continue_button_text}>Continue</Text>
+                    <Text style={styles.continue_button_text}>Next</Text>
                 </TouchableOpacity>
             </View>
         );
@@ -90,6 +90,7 @@ const styles = StyleSheet.create({
         fontSize: 28,
         alignSelf: "center",
         color: "white",
+        fontFamily: "Asap-Bold"
     },
     back_button: {
         alignSelf: "center",
@@ -102,6 +103,7 @@ const styles = StyleSheet.create({
     lesson_text: {
         fontSize: 32,
         marginBottom: 16,
+        fontFamily: "Asap-Bold",
     },
     learn_word_container: {
         backgroundColor: "rgba(255, 218, 162, 0.84)",
@@ -111,21 +113,23 @@ const styles = StyleSheet.create({
         borderRadius: 16,
         borderColor: "rgba(255, 199, 116, 0.84)",
         borderWidth: 3,
-        marginBottom: 32,
+        marginBottom: 48,
     },
     learn_word: {
         fontSize: 36,
+        fontFamily: "Asap"
     },
     continue_button: {
         backgroundColor: "rgb(97, 194, 23)",
         alignSelf: "center",
-        paddingHorizontal: 48,
+        paddingHorizontal: 64,
         paddingVertical: 16,
         borderRadius: 16,
         justifyContent: "flex-end"
     },
     continue_button_text: {
         color: "white",
-        fontSize: 16,
+        fontSize: 24,
+        fontFamily: "Asap-Bold",
     }
 })
