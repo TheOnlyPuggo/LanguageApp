@@ -267,10 +267,9 @@ const styles = StyleSheet.create({
     interact_button: {
         backgroundColor: "rgb(97, 194, 23)",
         alignSelf: "center",
-        paddingHorizontal: 64,
-        paddingVertical: 16,
         borderRadius: 16,
-        justifyContent: "flex-end",
+        justifyContent: "center",
+        alignItems: "center",
         width: 300,
         height: 70
     },
@@ -278,7 +277,7 @@ const styles = StyleSheet.create({
         color: "white",
         fontSize: 24,
         fontFamily: "Asap-Bold",
-        textAlign: "center"
+        textAlign: "center",
     },
     text_field_answer_container: {
         borderWidth: 4,
@@ -286,8 +285,9 @@ const styles = StyleSheet.create({
         borderColor: "rgb(194, 194, 194)",
         backgroundColor: "rgb(227, 227, 227)",
         padding: 10,
-        height: 250,
+        height: 100,
         marginHorizontal: 8,
         marginBottom: 32,
+        justifyContent:  "center"
     },
 })
