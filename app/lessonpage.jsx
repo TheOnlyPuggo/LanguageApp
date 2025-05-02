@@ -25,16 +25,18 @@ const lessonpage = () => {
     if (currentLessonType == "LearnType") {
         lessonBody = (
             <View style={styles.lesson_body}>
-                <Text style={styles.lesson_text}>Kalaw Kawaw Ya Word</Text>
-                <View style={styles.learn_word_container}>
-                    <Text style={styles.learn_word}>{currentWord.kky_word}</Text>
-                </View>
-                <Text style={styles.lesson_text}>English Word</Text>
-                <View style={styles.learn_word_container}>
-                    <Text style={styles.learn_word}>{currentWord.eng_word}</Text>
+                <View style={styles.lesson_content}>
+                    <Text style={styles.lesson_text}>Kalaw Kawaw Ya Word</Text>
+                    <View style={styles.learn_word_container}>
+                        <Text style={styles.learn_word}>{currentWord.kky_word}</Text>
+                    </View>
+                    <Text style={styles.lesson_text}>English Word</Text>
+                    <View style={styles.learn_word_container}>
+                        <Text style={styles.learn_word}>{currentWord.eng_word}</Text>
+                    </View>
                 </View>
                 <TouchableOpacity style={styles.continue_button}>
-                    <Text>Continue</Text>
+                    <Text style={styles.continue_button_text}>Continue</Text>
                 </TouchableOpacity>
             </View>
         );
@@ -64,7 +66,11 @@ export default lessonpage
 const styles = StyleSheet.create({
     lesson_body: {
         flex: 1,
-        justifyContent: "center",
+        justifyContent: "space-between",
+        paddingVertical: 32,
+    },
+    lesson_content: {
+        alignItems: "center"
     },
     title_container: {
         flexDirection: "row",
@@ -90,7 +96,7 @@ const styles = StyleSheet.create({
     },
     lesson_text: {
         fontSize: 32,
-        marginVertical: 16,
+        marginBottom: 16,
     },
     learn_word_container: {
         backgroundColor: "rgba(255, 218, 162, 0.84)",
@@ -100,6 +106,7 @@ const styles = StyleSheet.create({
         borderRadius: 16,
         borderColor: "rgba(255, 199, 116, 0.84)",
         borderWidth: 3,
+        marginBottom: 32,
     },
     learn_word: {
         fontSize: 36,
@@ -107,6 +114,13 @@ const styles = StyleSheet.create({
     continue_button: {
         backgroundColor: "rgb(97, 194, 23)",
         alignSelf: "center",
-        marginVertical: 32,
+        paddingHorizontal: 48,
+        paddingVertical: 16,
+        borderRadius: 16,
+        justifyContent: "flex-end"
+    },
+    continue_button_text: {
+        color: "white",
+        fontSize: 16,
     }
 })
