@@ -4,6 +4,7 @@
         "title": "Lesson 1",
         "desc": "Basic Vocabulary",
         "locked": false,
+        "unlock_lesson_id": 2,
         "lesson_words": [
             {
                 "eng_word": "ankle",
@@ -27,60 +28,114 @@
         "id": 2,
         "title": "Lesson 2",
         "desc": "Basic Vocabulary - 2",
-        "locked": true
+        "locked": true,
+        "unlock_lesson_id": 3,
+        "lesson_words": [
+            {
+                "eng_word": "blood",
+                "kky_word": "kulka"
+            },
+            {
+                "eng_word": "body",
+                "kky_word": "gamu"
+            },
+            {
+                "eng_word": "bone",
+                "kky_word": "ridh"
+            },
+            {
+                "eng_word": "bottom",
+                "kky_word": "kup"
+            }
+        ]
     },
     {
         "id": 3,
         "title": "Lesson 3",
-        "desc": "Introduction to Grammar",
-        "locked": true 
+        "desc": "Basic Vocabulary - 3",
+        "locked": true,
+        "unlock_lesson_id": null,
+        "lesson_words": [
+            {
+                "eng_word": "chest",
+                "kky_word": "da"
+            },
+            {
+                "eng_word": "chin",
+                "kky_word": "ibu"
+            },
+            {
+                "eng_word": "ears",
+                "kky_word": "kawral"
+            },
+            {
+                "eng_word": "elbow",
+                "kky_word": "kudu"
+            }
+        ]
     },
     {
         "id": 4,
         "title": "Lesson 4",
-        "desc": "Introduction to Grammar - 2",
-        "locked": true 
+        "desc": "Introduction to Grammar",
+        "locked": true,
+        "unlock_lesson_id": null,
+        "lesson_words": []
     },
     {
         "id": 5,
         "title": "Lesson 5",
-        "desc": "Introduction to Grammar - 3",
-        "locked": true 
+        "desc": "Introduction to Grammar - 2",
+        "locked": true,
+        "unlock_lesson_id": null,
+        "lesson_words": []
     },
     {
         "id": 6,
         "title": "Lesson 6",
         "desc": "Verb Conjugation",
-        "locked": true 
+        "locked": true,
+        "unlock_lesson_id": null,
+        "lesson_words": []
     },
     {
         "id": 7,
         "title": "Lesson 7",
         "desc": "Verb Conjugation - 2",
-        "locked": true 
+        "locked": true,
+        "unlock_lesson_id": null,
+        "lesson_words": []
     },
     {
         "id": 8,
         "title": "Lesson 8",
         "desc": "Verb Conjugation - 3",
-        "locked": true 
+        "locked": true,
+        "unlock_lesson_id": null,
+        "lesson_words": []
     },
     {
         "id": 9,
         "title": "Lesson 9",
-        "desc": "Basic Vocabulary - 3",
-        "locked": true 
+        "desc": "Basic Vocabulary - 4",
+        "locked": true,
+        "unlock_lesson_id": null,
+        "lesson_words": []
     },
     {
         "id": 10,
         "title": "Lesson 10",
-        "desc": "Basic Vocabulary - 4",
-        "locked": true 
+        "desc": "Basic Vocabulary - 5",
+        "locked": true,
+        "unlock_lesson_id": null,
+        "lesson_words": []
     },
     {
         "id": 11,
         "title": "Lesson 11",
-        "desc": "Basic Vocabulary - 5",
-        "locked": true 
+        "desc": "Basic Vocabulary - 6",
+        "locked": true,
+        "unlock_lesson_id": null,
+        "lesson_words": []
     }
 ]

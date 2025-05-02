@@ -2,6 +2,7 @@ import { StyleSheet, Text, TouchableOpacity, View, Image, TextInput } from 'reac
 import React, { useState, useEffect } from 'react'
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import LessonData from '../data/lessons.json';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const lessonpage = () => {
     const { id } = useLocalSearchParams();
@@ -10,11 +11,19 @@ const lessonpage = () => {
     for (var i = 0; i < LessonData.length; i++) {
         if (LessonData[i].id == id) {
             currentLesson = LessonData[i];
+            break;
         }
     }
 
     const [questionQueue, setQuestionQueue] = useState([]);
     const [currentQuestion, setCurrentQuestion] = useState(null);
+
+    async function unlockNewLesson() {
+        const unlockId = currentLesson.unlock_lesson_id;
+        if (unlockId != null) {
+            await AsyncStorage.setItem(`lesson_unlocked_${unlockId}`, JSON.stringify(true));
+        }
+    }
 
     useEffect(() => {
         let queue = [];
@@ -80,19 +89,26 @@ const lessonpage = () => {
                             HasShown: currentQuestion.HasShown + 1
                         };
 
+                        let queue;
+
                         if (updatedCurrentQuestion.HasShown == updatedCurrentQuestion.ShowAmount) {
-                            const queue = [...questionQueue];
-                            queue.shift();
-
-                            setQuestionQueue(queue);
-                            setCurrentQuestion(queue[0]);
+                            queue = [...questionQueue];
                         } else {
-                            const queue = [...questionQueue, updatedCurrentQuestion];
-                            queue.shift();
-
-                            setQuestionQueue(queue);
-                            setCurrentQuestion(queue[0]);
+                            queue = [...questionQueue, updatedCurrentQuestion];
                         }
+
+                        queue.shift();
+                        if (queue.length == 0) {
+                            unlockNewLesson();
+                            router.back();
+                        }
+                        
+                        setQuestionQueue(queue);
+                        setCurrentQuestion(queue[0]);
+
+                        setAnswerText("");
+                        setUserShowedAnswer(false);
+                        setShowAnswer(false);
                     }}>
                         <Text style={styles.interact_button_text}>Next</Text>
                     </TouchableOpacity>
@@ -138,13 +154,27 @@ const lessonpage = () => {
                     )}
                     {answerText.toLowerCase().trim() === currentQuestion.WordData.eng_word && (
                         <View style={[styles.text_field_answer_container, {borderColor: "rgb(44, 192, 18)"}]}>
-                            <Text style={{fontSize: 32}}>{answerText}</Text>
+                            <TextInput
+                                multiline={true}
+                                style={{fontSize: 32}}
+                                onChangeText={setAnswerText}
+                                value={answerText}
+                                placeholder="Type Answer..."
+                                editable={false}
+                            />
                         </View>
                     )}
                     {userShowedAnswer && (
                         <View style={[styles.text_field_answer_container, {borderColor: "rgb(194, 23, 23)"}]}>
-                            <Text style={{fontSize: 32}}>{answerText}</Text>
-                        </View>
+                        <TextInput
+                            multiline={true}
+                            style={{fontSize: 32}}
+                            onChangeText={setAnswerText}
+                            value={answerText}
+                            placeholder="Type Answer..."
+                            editable={false}
+                        />
+                    </View>
                     )}
                     {(answerText.toLowerCase().trim() === currentQuestion.WordData.eng_word || userShowedAnswer) && (
                         <TouchableOpacity style={styles.interact_button} onPress={() => {
@@ -161,24 +191,26 @@ const lessonpage = () => {
                                 };
                             }
 
+                            let queue;
+
                             if (updatedCurrentQuestion.HasShown == updatedCurrentQuestion.ShowAmount) {
-                                const queue = [...questionQueue];
-                                queue.shift();
-        
-                                setQuestionQueue(queue);
-                                setCurrentQuestion(queue[0]);
+                                queue = [...questionQueue];
                             } else {
-                                const queue = [...questionQueue, updatedCurrentQuestion];
-                                queue.shift();
-        
-                                setQuestionQueue(queue);
-                                setCurrentQuestion(queue[0]);
+                                queue = [...questionQueue, updatedCurrentQuestion];
                             }
+
+                            queue.shift();
+                            if (queue.length == 0) {
+                                unlockNewLesson();
+                                router.back();
+                            }
+                            
+                            setQuestionQueue(queue);
+                            setCurrentQuestion(queue[0]);
 
                             setAnswerText("");
                             setUserShowedAnswer(false);
                             setShowAnswer(false);
-                            
                         }}>
                             <Text style={styles.interact_button_text}>Next</Text>
                         </TouchableOpacity>
