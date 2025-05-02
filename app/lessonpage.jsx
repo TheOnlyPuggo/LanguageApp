@@ -24,17 +24,24 @@ const lessonpage = () => {
 
     if (currentLessonType == "LearnType") {
         lessonBody = (
-            <View>
+            <View style={styles.lesson_body}>
                 <Text style={styles.lesson_text}>Kalaw Kawaw Ya Word</Text>
-                <Text>{currentWord.kky_word}</Text>
+                <View style={styles.learn_word_container}>
+                    <Text style={styles.learn_word}>{currentWord.kky_word}</Text>
+                </View>
                 <Text style={styles.lesson_text}>English Word</Text>
-                <Text>{currentWord.eng_word}</Text>
+                <View style={styles.learn_word_container}>
+                    <Text style={styles.learn_word}>{currentWord.eng_word}</Text>
+                </View>
+                <TouchableOpacity style={styles.continue_button}>
+                    <Text>Continue</Text>
+                </TouchableOpacity>
             </View>
         );
     }
 
     return (
-        <View>
+        <View style={{ flex: 1 }}>
             <View style={styles.title_container}>
                 <TouchableOpacity style={styles.back_button} onPress={() => router.back()}>
                     <Image
@@ -55,6 +62,10 @@ const lessonpage = () => {
 export default lessonpage
 
 const styles = StyleSheet.create({
+    lesson_body: {
+        flex: 1,
+        justifyContent: "center",
+    },
     title_container: {
         flexDirection: "row",
         alignItems: "center",
@@ -80,5 +91,22 @@ const styles = StyleSheet.create({
     lesson_text: {
         fontSize: 32,
         marginVertical: 16,
+    },
+    learn_word_container: {
+        backgroundColor: "rgba(255, 218, 162, 0.84)",
+        alignSelf: "center",
+        paddingHorizontal: 24,
+        paddingVertical: 8,
+        borderRadius: 16,
+        borderColor: "rgba(255, 199, 116, 0.84)",
+        borderWidth: 3,
+    },
+    learn_word: {
+        fontSize: 36,
+    },
+    continue_button: {
+        backgroundColor: "rgb(97, 194, 23)",
+        alignSelf: "center",
+        marginVertical: 32,
     }
 })

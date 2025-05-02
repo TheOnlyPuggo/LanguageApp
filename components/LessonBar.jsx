@@ -16,7 +16,6 @@ const LessonBar = (props) => {
                         pathname: 'lessonpage',
                         params: {
                             id: props.lesson.id,
-                            title: props.lesson.title,
                         }
                     })
                 }
