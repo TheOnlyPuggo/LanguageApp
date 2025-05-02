@@ -19,7 +19,7 @@
         "id": 2,
         "title": "Lesson 2",
         "desc": "Basic Vocabulary - 2",
-        "locked": false
+        "locked": true
     },
     {
         "id": 3,

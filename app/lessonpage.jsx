@@ -16,7 +16,7 @@ const lessonpage = () => {
     const [currentLessonType, setCurrentLessonType] = useState("LearnType")
 
     const [shownWords, setShownWords] = useState([]);
-    const [currentWord, setCurrentWord] = useState(currentLesson.lesson_words[0]);
+    const [currentWordIndex, setCurrentWordIndex] = useState(0);
 
     let lessonBody;
 
@@ -28,14 +28,19 @@ const lessonpage = () => {
                 <View style={styles.lesson_content}>
                     <Text style={styles.lesson_text}>Kalaw Kawaw Ya Word</Text>
                     <View style={styles.learn_word_container}>
-                        <Text style={styles.learn_word}>{currentWord.kky_word}</Text>
+                        <Text style={styles.learn_word}>{currentLesson.lesson_words[currentWordIndex].kky_word}</Text>
                     </View>
                     <Text style={styles.lesson_text}>English Word</Text>
                     <View style={styles.learn_word_container}>
-                        <Text style={styles.learn_word}>{currentWord.eng_word}</Text>
+                        <Text style={styles.learn_word}>{currentLesson.lesson_words[currentWordIndex].eng_word}</Text>
                     </View>
                 </View>
-                <TouchableOpacity style={styles.continue_button}>
+                <TouchableOpacity style={styles.continue_button} onPress={() => {
+                    if (currentLesson.lesson_words[currentWordIndex+1]) {
+                        setShownWords([...shownWords, currentLesson.lesson_words[currentWordIndex]]);
+                        setCurrentWordIndex(currentWordIndex + 1);
+                    }
+                }}>
                     <Text style={styles.continue_button_text}>Continue</Text>
                 </TouchableOpacity>
             </View>
