@@ -3,7 +3,17 @@
         "id": 1,
         "title": "Lesson 1",
         "desc": "Basic Vocabulary",
-        "locked": false
+        "locked": false,
+        "lesson_words": [
+            {
+                "eng_word": "ankle",
+                "kky_word": "danakuku"
+            },
+            {
+                "eng_word": "arm",
+                "kky_word": "geth"
+            }
+        ]
     },
     {
         "id": 2,
@@ -15,6 +25,54 @@
         "id": 3,
         "title": "Lesson 3",
         "desc": "Introduction to Grammar",
+        "locked": true 
+    },
+    {
+        "id": 4,
+        "title": "Lesson 4",
+        "desc": "Introduction to Grammar - 2",
+        "locked": true 
+    },
+    {
+        "id": 5,
+        "title": "Lesson 5",
+        "desc": "Introduction to Grammar - 3",
+        "locked": true 
+    },
+    {
+        "id": 6,
+        "title": "Lesson 6",
+        "desc": "Verb Conjugation",
+        "locked": true 
+    },
+    {
+        "id": 7,
+        "title": "Lesson 7",
+        "desc": "Verb Conjugation - 2",
+        "locked": true 
+    },
+    {
+        "id": 8,
+        "title": "Lesson 8",
+        "desc": "Verb Conjugation - 3",
+        "locked": true 
+    },
+    {
+        "id": 9,
+        "title": "Lesson 9",
+        "desc": "Basic Vocabulary - 3",
+        "locked": true 
+    },
+    {
+        "id": 10,
+        "title": "Lesson 10",
+        "desc": "Basic Vocabulary - 4",
+        "locked": true 
+    },
+    {
+        "id": 11,
+        "title": "Lesson 11",
+        "desc": "Basic Vocabulary - 5",
         "locked": true 
     }
 ]

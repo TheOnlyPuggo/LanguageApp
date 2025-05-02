@@ -1,11 +1,37 @@
 import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { useRouter, useLocalSearchParams } from 'expo-router';
+import LessonData from '../data/lessons.json';
 
 const lessonpage = () => {
-    const { title } = useLocalSearchParams();
+    const { id } = useLocalSearchParams();
+
+    let currentLesson;
+    for (var i = 0; i < LessonData.length; i++) {
+        if (LessonData[i].id == id) {
+            currentLesson = LessonData[i];
+        }
+    }
+
+    const [currentLessonType, setCurrentLessonType] = useState("LearnType")
+
+    const [shownWords, setShownWords] = useState([]);
+    const [currentWord, setCurrentWord] = useState(currentLesson.lesson_words[0]);
+
+    let lessonBody;
 
     const router = useRouter();
+
+    if (currentLessonType == "LearnType") {
+        lessonBody = (
+            <View>
+                <Text style={styles.lesson_text}>Kalaw Kawaw Ya Word</Text>
+                <Text>{currentWord.kky_word}</Text>
+                <Text style={styles.lesson_text}>English Word</Text>
+                <Text>{currentWord.eng_word}</Text>
+            </View>
+        );
+    }
 
     return (
         <View>
@@ -17,10 +43,11 @@ const lessonpage = () => {
                     />
                 </TouchableOpacity>
                 <View style={styles.title_text_container}>
-                    <Text style={styles.title_text}>{title}</Text>
+                    <Text style={styles.title_text}>{currentLesson.title}</Text>
                 </View>
                 <View style={styles.back_button_image} />
             </View>
+            {lessonBody}
         </View>
     )
 }
@@ -49,5 +76,9 @@ const styles = StyleSheet.create({
     back_button_image: {
         width: 48,
         height: 48,
+    },
+    lesson_text: {
+        fontSize: 32,
+        marginVertical: 16,
     }
 })
