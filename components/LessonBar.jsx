@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
 
 const LessonBar = (props) => {
-    const lessonLocked = props.lessonLocked;
+    const lessonLocked = props.lesson.locked;
     let button;
 
     const router = useRouter();
@@ -15,7 +15,8 @@ const LessonBar = (props) => {
                     router.push({
                         pathname: 'lessonpage',
                         params: {
-                            title: props.title,
+                            id: props.lesson.id,
+                            title: props.lesson.title,
                         }
                     })
                 }
@@ -35,8 +36,8 @@ const LessonBar = (props) => {
     return (
         <View style={styles.message_box}>
             <View style={styles.text_container}>
-                <Text style={styles.title}>{props.title}</Text>
-                <Text style={styles.desc}>{props.desc}</Text>
+                <Text style={styles.title}>{props.lesson.title}</Text>
+                <Text style={styles.desc}>{props.lesson.desc}</Text>
             </View>
             {button}
         </View>
@@ -53,7 +54,7 @@ const styles = StyleSheet.create({
         borderRadius: 16,
         marginHorizontal: 8,
         flexDirection: "row",
-        marginBottom: 6,
+        marginVertical: 6,
     },
     text_container: {
         flex: 1,
