@@ -51,7 +51,7 @@ const lessonpage = () => {
     const [userShowedAnswer, setUserShowedAnswer] = useState(false);
 
     useEffect(() => {
-        if (answerText.toLowerCase() === currentQuestion?.WordData.eng_word.toLowerCase()) {
+        if (answerText.toLowerCase().trim() === currentQuestion?.WordData.eng_word.toLowerCase()) {
             setShowAnswer(true);
         }
     }, [answerText, currentQuestion]);
@@ -115,7 +115,7 @@ const lessonpage = () => {
                         </View>
                     )}
                 </View>
-                {answerText.toLowerCase() !== currentQuestion.WordData.eng_word && !userShowedAnswer && (
+                {answerText.toLowerCase().trim() !== currentQuestion.WordData.eng_word && !userShowedAnswer && (
                     <View>
                         <View style={styles.text_field_answer_container}>
                             <TextInput
@@ -127,18 +127,15 @@ const lessonpage = () => {
                             />
                         </View>
                         {!userShowedAnswer && (
-                            <TouchableOpacity style={styles.skip_question_button}>
-                                <Text 
-                                    style={styles.skip_question_button_text} 
-                                    onPress={() => setUserShowedAnswer(true)}
-                                >
+                            <TouchableOpacity style={styles.skip_question_button} onPress={() => setUserShowedAnswer(true)}>
+                                <Text style={styles.skip_question_button_text}>
                                     Show Answer
                                 </Text>
                             </TouchableOpacity>
                         )}
                     </View>
                 )}
-                {answerText.toLowerCase() === currentQuestion.WordData.eng_word && (
+                {answerText.toLowerCase().trim() === currentQuestion.WordData.eng_word && (
                     <View>
                         <View style={styles.correct_answer_container}>
                             <Text style={styles.correct_answer}>{answerText}</Text>
@@ -152,7 +149,7 @@ const lessonpage = () => {
                         </View>
                     </View>
                 )}
-                {(answerText.toLowerCase() === currentQuestion.WordData.eng_word || userShowedAnswer) && (
+                {(answerText.toLowerCase().trim() === currentQuestion.WordData.eng_word || userShowedAnswer) && (
                     <TouchableOpacity style={styles.next_button} onPress={() => {
 
                         let updatedCurrentQuestion;
