@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
+import { useFonts } from 'expo-font';
 
 const LessonBar = (props) => {
     const lessonLocked = props.lesson.locked;
@@ -60,10 +61,11 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 24,
-        fontWeight: "bold",
+        fontFamily: "Asap-Bold",
     },
     desc: {
         fontSize: 16,
+        fontFamily: "Asap"
     },
     custom_button_unlocked: {
         backgroundColor: "rgb(97, 194, 23)",
@@ -82,13 +84,13 @@ const styles = StyleSheet.create({
     button_text_unlocked: {
         color: "white",
         fontSize: 18,
-        fontWeight: "bold",
         textAlign: "center",
+        fontFamily: "Asap-Bold"
     },
     button_text_locked: {
         color: "rgb(84, 84, 84)",
         fontSize: 18,
-        fontWeight: "bold",
         textAlign: "center",
+        fontFamily: "Asap-Bold"
     }
 });
