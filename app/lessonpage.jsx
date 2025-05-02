@@ -46,7 +46,7 @@ const lessonpage = () => {
             queue.push(
                 {
                     LessonType: "WriteAnswerToEngType",
-                    ShowAmount: 3,
+                    ShowAmount: 2,
                     HasShown: 0,
                     WordData: words,
                 }
