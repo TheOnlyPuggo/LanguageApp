@@ -73,28 +73,30 @@ const lessonpage = () => {
                         <Text style={styles.learn_word}>{currentQuestion.WordData.eng_word}</Text>
                     </View>
                 </View>
-                <TouchableOpacity style={styles.next_button} onPress={() => {
-                    const updatedCurrentQuestion = {
-                        ...currentQuestion, 
-                        HasShown: currentQuestion.HasShown + 1
-                    };
+                <View style={styles.user_interact}>
+                    <TouchableOpacity style={styles.interact_button} onPress={() => {
+                        const updatedCurrentQuestion = {
+                            ...currentQuestion, 
+                            HasShown: currentQuestion.HasShown + 1
+                        };
 
-                    if (updatedCurrentQuestion.HasShown == updatedCurrentQuestion.ShowAmount) {
-                        const queue = [...questionQueue];
-                        queue.shift();
+                        if (updatedCurrentQuestion.HasShown == updatedCurrentQuestion.ShowAmount) {
+                            const queue = [...questionQueue];
+                            queue.shift();
 
-                        setQuestionQueue(queue);
-                        setCurrentQuestion(queue[0]);
-                    } else {
-                        const queue = [...questionQueue, updatedCurrentQuestion];
-                        queue.shift();
+                            setQuestionQueue(queue);
+                            setCurrentQuestion(queue[0]);
+                        } else {
+                            const queue = [...questionQueue, updatedCurrentQuestion];
+                            queue.shift();
 
-                        setQuestionQueue(queue);
-                        setCurrentQuestion(queue[0]);
-                    }
-                }}>
-                    <Text style={styles.next_button_text}>Next</Text>
-                </TouchableOpacity>
+                            setQuestionQueue(queue);
+                            setCurrentQuestion(queue[0]);
+                        }
+                    }}>
+                        <Text style={styles.interact_button_text}>Next</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         );
     }
@@ -115,77 +117,73 @@ const lessonpage = () => {
                         </View>
                     )}
                 </View>
-                {answerText.toLowerCase().trim() !== currentQuestion.WordData.eng_word && !userShowedAnswer && (
-                    <View>
-                        <View style={styles.text_field_answer_container}>
-                            <TextInput
-                                multiline={true}
-                                style={styles.text_field_answer}
-                                onChangeText={setAnswerText}
-                                value={answerText}
-                                placeholder="Type Answer..."
-                            />
-                        </View>
-                        {!userShowedAnswer && (
-                            <TouchableOpacity style={styles.skip_question_button} onPress={() => setUserShowedAnswer(true)}>
-                                <Text style={styles.skip_question_button_text}>
+                <View style={styles.user_interact}>
+                    {answerText.toLowerCase().trim() !== currentQuestion.WordData.eng_word && !userShowedAnswer && (
+                        <View>
+                            <View style={styles.text_field_answer_container}>
+                                <TextInput
+                                    multiline={true}
+                                    style={{fontSize: 32}}
+                                    onChangeText={setAnswerText}
+                                    value={answerText}
+                                    placeholder="Type Answer..."
+                                />
+                            </View>
+                            <TouchableOpacity style={[styles.interact_button, {backgroundColor: "rgb(194, 23, 23)"}]} onPress={() => setUserShowedAnswer(true)}>
+                                <Text style={styles.interact_button_text}>
                                     Show Answer
                                 </Text>
                             </TouchableOpacity>
-                        )}
-                    </View>
-                )}
-                {answerText.toLowerCase().trim() === currentQuestion.WordData.eng_word && (
-                    <View>
-                        <View style={styles.correct_answer_container}>
-                            <Text style={styles.correct_answer}>{answerText}</Text>
                         </View>
-                    </View>
-                )}
-                {userShowedAnswer && (
-                    <View>
-                        <View style={styles.incorrect_answer_container}>
-                            <Text style={styles.incorrect_answer}>{answerText}</Text>
+                    )}
+                    {answerText.toLowerCase().trim() === currentQuestion.WordData.eng_word && (
+                        <View style={[styles.text_field_answer_container, {borderColor: "rgb(44, 192, 18)"}]}>
+                            <Text style={{fontSize: 32}}>{answerText}</Text>
                         </View>
-                    </View>
-                )}
-                {(answerText.toLowerCase().trim() === currentQuestion.WordData.eng_word || userShowedAnswer) && (
-                    <TouchableOpacity style={styles.next_button} onPress={() => {
+                    )}
+                    {userShowedAnswer && (
+                        <View style={[styles.text_field_answer_container, {borderColor: "rgb(194, 23, 23)"}]}>
+                            <Text style={{fontSize: 32}}>{answerText}</Text>
+                        </View>
+                    )}
+                    {(answerText.toLowerCase().trim() === currentQuestion.WordData.eng_word || userShowedAnswer) && (
+                        <TouchableOpacity style={styles.interact_button} onPress={() => {
 
-                        let updatedCurrentQuestion;
-                        if (userShowedAnswer) {
-                            updatedCurrentQuestion = {
-                                ...currentQuestion, 
-                            };
-                        } else {
-                            updatedCurrentQuestion = {
-                                ...currentQuestion, 
-                                HasShown: currentQuestion.HasShown + 1
-                            };
-                        }
+                            let updatedCurrentQuestion;
+                            if (userShowedAnswer) {
+                                updatedCurrentQuestion = {
+                                    ...currentQuestion, 
+                                };
+                            } else {
+                                updatedCurrentQuestion = {
+                                    ...currentQuestion, 
+                                    HasShown: currentQuestion.HasShown + 1
+                                };
+                            }
 
-                        if (updatedCurrentQuestion.HasShown == updatedCurrentQuestion.ShowAmount) {
-                            const queue = [...questionQueue];
-                            queue.shift();
-    
-                            setQuestionQueue(queue);
-                            setCurrentQuestion(queue[0]);
-                        } else {
-                            const queue = [...questionQueue, updatedCurrentQuestion];
-                            queue.shift();
-    
-                            setQuestionQueue(queue);
-                            setCurrentQuestion(queue[0]);
-                        }
+                            if (updatedCurrentQuestion.HasShown == updatedCurrentQuestion.ShowAmount) {
+                                const queue = [...questionQueue];
+                                queue.shift();
+        
+                                setQuestionQueue(queue);
+                                setCurrentQuestion(queue[0]);
+                            } else {
+                                const queue = [...questionQueue, updatedCurrentQuestion];
+                                queue.shift();
+        
+                                setQuestionQueue(queue);
+                                setCurrentQuestion(queue[0]);
+                            }
 
-                        setAnswerText("");
-                        setUserShowedAnswer(false);
-                        setShowAnswer(false);
-                        
-                    }}>
-                        <Text style={styles.next_button_text}>Next</Text>
-                    </TouchableOpacity>
-                )}
+                            setAnswerText("");
+                            setUserShowedAnswer(false);
+                            setShowAnswer(false);
+                            
+                        }}>
+                            <Text style={styles.interact_button_text}>Next</Text>
+                        </TouchableOpacity>
+                    )}
+                </View>
             </View>
         );
     }
@@ -214,7 +212,6 @@ export default lessonpage
 const styles = StyleSheet.create({
     lesson_body: {
         flex: 1,
-        justifyContent: "space-between",
         paddingVertical: 32,
     },
     lesson_content: {
@@ -263,18 +260,25 @@ const styles = StyleSheet.create({
         fontSize: 36,
         fontFamily: "Asap"
     },
-    next_button: {
+    user_interact: {
+        flex: 1,
+        justifyContent: "flex-end",
+    },
+    interact_button: {
         backgroundColor: "rgb(97, 194, 23)",
         alignSelf: "center",
         paddingHorizontal: 64,
         paddingVertical: 16,
         borderRadius: 16,
-        justifyContent: "flex-end"
+        justifyContent: "flex-end",
+        width: 300,
+        height: 70
     },
-    next_button_text: {
+    interact_button_text: {
         color: "white",
         fontSize: 24,
         fontFamily: "Asap-Bold",
+        textAlign: "center"
     },
     text_field_answer_container: {
         borderWidth: 4,
@@ -284,48 +288,6 @@ const styles = StyleSheet.create({
         padding: 10,
         height: 250,
         marginHorizontal: 8,
-        marginBottom: 16,
+        marginBottom: 32,
     },
-    text_field_answer: {
-        fontSize: 32,
-    },
-    correct_answer_container: {
-        borderWidth: 4,
-        borderRadius: 16,
-        borderColor: "rgb(44, 192, 18)",
-        backgroundColor: "rgb(227, 227, 227)",
-        padding: 10,
-        height: 250,
-        marginHorizontal: 8,
-        marginBottom: 16,
-    },
-    correct_answer: {
-        fontSize: 32,
-    },
-    incorrect_answer_container: {
-        borderWidth: 4,
-        borderRadius: 16,
-        borderColor: "rgb(194, 23, 23)",
-        backgroundColor: "rgb(227, 227, 227)",
-        padding: 10,
-        height: 250,
-        marginHorizontal: 8,
-        marginBottom: 16,
-    },
-    incorrect_answer: {
-        fontSize: 32,
-    },
-    skip_question_button: {
-        backgroundColor: "rgb(194, 23, 23)",
-        alignSelf: "center",
-        paddingHorizontal: 64,
-        paddingVertical: 16,
-        borderRadius: 16,
-        justifyContent: "flex-end"
-    },
-    skip_question_button_text: {
-        color: "white",
-        fontSize: 24,
-        fontFamily: "Asap-Bold",
-    }
 })
