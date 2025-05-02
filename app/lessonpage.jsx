@@ -8,10 +8,16 @@ const lessonpage = () => {
     const { id } = useLocalSearchParams();
 
     let currentLesson;
+    let lessonEnglishWords = [];
+    let lessonKKYWords = [];
     for (var i = 0; i < LessonData.length; i++) {
         if (LessonData[i].id == id) {
             currentLesson = LessonData[i];
-            break;
+        }
+
+        for (var word of LessonData[i].lesson_words) {
+            lessonEnglishWords.push(word.eng_word);
+            lessonKKYWords.push(word.kky_word);
         }
     }
 
@@ -40,7 +46,7 @@ const lessonpage = () => {
             queue.push(
                 {
                     LessonType: "WriteAnswerToEngType",
-                    ShowAmount: 2,
+                    ShowAmount: 3,
                     HasShown: 0,
                     WordData: words,
                 }
@@ -60,8 +66,15 @@ const lessonpage = () => {
     const [userShowedAnswer, setUserShowedAnswer] = useState(false);
 
     useEffect(() => {
-        if (answerText.toLowerCase().trim() === currentQuestion?.WordData.eng_word.toLowerCase()) {
+        if (answerText.toLowerCase().trim() === currentQuestion?.WordData.eng_word.toLowerCase()
+            && currentQuestion?.LessonType == "WriteAnswerToEngType") {
             setShowAnswer(true);
+        } else if (currentQuestion?.LessonType == "WriteAnswerToEngType") {
+            for (var word of lessonEnglishWords) {
+                if (answerText.toLowerCase().trim() === word) {
+                    setUserShowedAnswer(true);
+                }
+            }
         }
     }, [answerText, currentQuestion]);
 
