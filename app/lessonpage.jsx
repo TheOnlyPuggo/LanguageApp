@@ -57,6 +57,47 @@ const lessonpage = () => {
         setCurrentQuestion(queue[0]);
     }, []);
 
+    function nextQuestion(updatedCurrentQuestion) {
+        let queue;
+
+        if (updatedCurrentQuestion.HasShown == updatedCurrentQuestion.ShowAmount) {
+            queue = [...questionQueue];
+        } else {
+            queue = [...questionQueue, updatedCurrentQuestion];
+        }
+
+        queue.shift();
+        if (queue.length == 0) {
+            unlockNewLesson();
+            router.back();
+            return;
+        }
+
+        let lessonTypeExists = false;
+        for (var lesson of queue) {
+            if (lesson.LessonType === "LearnType") {
+                lessonTypeExists = true;
+                break;
+            }
+            i++;
+        }
+
+        if (!lessonTypeExists && queue.length >= 3) {
+            if (Math.random() >= 0.2) {
+                let temp = queue[1];
+                queue[1] = queue[2];
+                queue[2] = temp;
+            }
+        }
+        
+        setQuestionQueue(queue);
+        setCurrentQuestion(queue[0]);
+
+        setAnswerText("");
+        setUserShowedAnswer(false);
+        setShowAnswer(false);
+    }
+
     let lessonBody;
 
     const router = useRouter();
@@ -102,26 +143,7 @@ const lessonpage = () => {
                             HasShown: currentQuestion.HasShown + 1
                         };
 
-                        let queue;
-
-                        if (updatedCurrentQuestion.HasShown == updatedCurrentQuestion.ShowAmount) {
-                            queue = [...questionQueue];
-                        } else {
-                            queue = [...questionQueue, updatedCurrentQuestion];
-                        }
-
-                        queue.shift();
-                        if (queue.length == 0) {
-                            unlockNewLesson();
-                            router.back();
-                        }
-                        
-                        setQuestionQueue(queue);
-                        setCurrentQuestion(queue[0]);
-
-                        setAnswerText("");
-                        setUserShowedAnswer(false);
-                        setShowAnswer(false);
+                        nextQuestion(updatedCurrentQuestion);
                     }}>
                         <Text style={styles.interact_button_text}>Next</Text>
                     </TouchableOpacity>
@@ -191,7 +213,6 @@ const lessonpage = () => {
                     )}
                     {(answerText.toLowerCase().trim() === currentQuestion.WordData.eng_word || userShowedAnswer) && (
                         <TouchableOpacity style={styles.interact_button} onPress={() => {
-
                             let updatedCurrentQuestion;
                             if (userShowedAnswer) {
                                 updatedCurrentQuestion = {
@@ -204,26 +225,7 @@ const lessonpage = () => {
                                 };
                             }
 
-                            let queue;
-
-                            if (updatedCurrentQuestion.HasShown == updatedCurrentQuestion.ShowAmount) {
-                                queue = [...questionQueue];
-                            } else {
-                                queue = [...questionQueue, updatedCurrentQuestion];
-                            }
-
-                            queue.shift();
-                            if (queue.length == 0) {
-                                unlockNewLesson();
-                                router.back();
-                            }
-                            
-                            setQuestionQueue(queue);
-                            setCurrentQuestion(queue[0]);
-
-                            setAnswerText("");
-                            setUserShowedAnswer(false);
-                            setShowAnswer(false);
+                            nextQuestion(updatedCurrentQuestion);
                         }}>
                             <Text style={styles.interact_button_text}>Next</Text>
                         </TouchableOpacity>
