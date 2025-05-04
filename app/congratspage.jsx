@@ -32,12 +32,12 @@ const congratspage = () => {
                 <TouchableOpacity 
                     style={[styles.home_button, {backgroundColor: "rgb(97, 194, 23)"}]}
                     onPress={() => {
-                        router.push({
+                        router.navigate({
                             pathname: 'lessonpage',
                             params: {
                                 id: unlockedLessonId,
                             }
-                        })
+                        });
                     }}
                 >
                     <Text style={styles.home_button_text}>Next Lesson</Text>
@@ -49,7 +49,7 @@ const congratspage = () => {
                     onPress={() => {
                         router.navigate({
                             pathname: '(tabs)',
-                        })
+                        });
                         router.dismissAll();
                     }}
                 >

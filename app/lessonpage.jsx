@@ -14,12 +14,13 @@ const lessonpage = () => {
     for (var i = 0; i < LessonData.length; i++) {
         if (LessonData[i].id == id) {
             currentLesson = LessonData[i];
+            break;
         }
+    }
 
-        for (var word of LessonData[i].lesson_words) {
-            lessonEnglishWords.push(word.eng_word);
-            lessonKKYWords.push(word.kky_word);
-        }
+    for (var word of currentLesson.lesson_words) {
+        lessonEnglishWords.push(word.eng_word);
+        lessonKKYWords.push(word.kky_word);
     }
 
     const [questionQueue, setQuestionQueue] = useState([]);
@@ -54,6 +55,14 @@ const lessonpage = () => {
             queue.push(
                 {
                     LessonType: "WriteAnswerToEngType",
+                    ShowAmount: 2,
+                    HasShown: 0,
+                    WordData: words,
+                }
+            );
+            queue.push(
+                {
+                    LessonType: "WriteAnswerToKKYType",
                     ShowAmount: 2,
                     HasShown: 0,
                     WordData: words,
@@ -118,6 +127,17 @@ const lessonpage = () => {
             setShowAnswer(true);
         } else if (currentQuestion?.LessonType == "WriteAnswerToEngType") {
             for (var word of lessonEnglishWords) {
+                if (answerText.toLowerCase().trim() === word) {
+                    setUserShowedAnswer(true);
+                }
+            }
+        }
+
+        if (answerText.toLowerCase().trim() === currentQuestion?.WordData.kky_word.toLowerCase()
+            && currentQuestion?.LessonType == "WriteAnswerToKKYType") {
+            setShowAnswer(true);
+        } else if (currentQuestion?.LessonType == "WriteAnswerToKKYType") {
+            for (var word of lessonKKYWords) {
                 if (answerText.toLowerCase().trim() === word) {
                     setUserShowedAnswer(true);
                 }
@@ -220,6 +240,94 @@ const lessonpage = () => {
                     </View>
                     )}
                     {(answerText.toLowerCase().trim() === currentQuestion.WordData.eng_word || userShowedAnswer) && (
+                        <TouchableOpacity style={styles.interact_button} onPress={() => {
+                            let updatedCurrentQuestion;
+                            let questionCorrect;                            
+
+                            if (userShowedAnswer) {
+                                updatedCurrentQuestion = {
+                                    ...currentQuestion,
+                                };
+                                questionCorrect = false;
+                                setQuestionShownAmount(questionShownAmount + 1);
+                            } else {
+                                updatedCurrentQuestion = {
+                                    ...currentQuestion, 
+                                    HasShown: currentQuestion.HasShown + 1
+                                };
+                                setQuestionCorrectAmount(questionCorrectAmount + 1);
+                                setQuestionShownAmount(questionShownAmount + 1);
+                            }
+
+                            nextQuestion(updatedCurrentQuestion, questionCorrect);
+                        }}>
+                            <Text style={styles.interact_button_text}>Next</Text>
+                        </TouchableOpacity>
+                    )}
+                </View>
+            </View>
+        );
+    } else if (currentQuestion.LessonType == "WriteAnswerToKKYType") {
+        lessonBody = (
+            <View style={styles.lesson_body}>
+                <View style={styles.lesson_content}>
+                    <Text style={styles.lesson_text}>Translate this word into Kalaw Kawaw Ya</Text>
+                    <View style={styles.learn_word_container}>
+                        <Text style={styles.learn_word}>{currentQuestion.WordData.eng_word}</Text>
+                    </View>
+                    {(showAnswer || userShowedAnswer) && (
+                        <View>
+                            <Text style={styles.lesson_text}>Answer</Text>
+                            <View style={styles.learn_word_container}>
+                                <Text style={styles.learn_word}>{currentQuestion.WordData.kky_word}</Text>
+                            </View>
+                        </View>
+                    )}
+                </View>
+                <View style={styles.user_interact}>
+                    {answerText.toLowerCase().trim() !== currentQuestion.WordData.kky_word && !userShowedAnswer && (
+                        <View>
+                            <View style={styles.text_field_answer_container}>
+                                <TextInput
+                                    multiline={true}
+                                    style={{fontSize: 32}}
+                                    onChangeText={setAnswerText}
+                                    value={answerText}
+                                    placeholder="Type Answer..."
+                                />
+                            </View>
+                            <TouchableOpacity style={[styles.interact_button, {backgroundColor: "rgb(194, 23, 23)"}]} onPress={() => setUserShowedAnswer(true)}>
+                                <Text style={styles.interact_button_text}>
+                                    Show Answer
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+                    )}
+                    {answerText.toLowerCase().trim() === currentQuestion.WordData.kky_word && (
+                        <View style={[styles.text_field_answer_container, {borderColor: "rgb(44, 192, 18)"}]}>
+                            <TextInput
+                                multiline={true}
+                                style={{fontSize: 32}}
+                                onChangeText={setAnswerText}
+                                value={answerText}
+                                placeholder="Type Answer..."
+                                editable={false}
+                            />
+                        </View>
+                    )}
+                    {userShowedAnswer && (
+                        <View style={[styles.text_field_answer_container, {borderColor: "rgb(194, 23, 23)"}]}>
+                        <TextInput
+                            multiline={true}
+                            style={{fontSize: 32}}
+                            onChangeText={setAnswerText}
+                            value={answerText}
+                            placeholder="Type Answer..."
+                            editable={false}
+                        />
+                    </View>
+                    )}
+                    {(answerText.toLowerCase().trim() === currentQuestion.WordData.kky_word || userShowedAnswer) && (
                         <TouchableOpacity style={styles.interact_button} onPress={() => {
                             let updatedCurrentQuestion;
                             let questionCorrect;                            
