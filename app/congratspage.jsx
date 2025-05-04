@@ -1,21 +1,46 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import {  useRouter, useLocalSearchParams } from 'expo-router'
+import LessonData from '../data/lessons.json';
 
 const congratspage = () => {
-    const { score, unlockedLessonTitle } = useLocalSearchParams();
+    const { score, unlockedLessonId } = useLocalSearchParams();
     const router = useRouter();
+
+    let unlockedLessonTitle = null;
+            
+    for (var lesson of LessonData) {
+        if (lesson.id == unlockedLessonId) {
+            unlockedLessonTitle = lesson.title;
+            break;
+        }
+    }
 
     return (
         <View style={styles.body}>
             <Text style={styles.congrats_text}>Congratulations!</Text>
             <Text style={styles.score_text}>Score: {score}%</Text>
             {(unlockedLessonTitle == null) && (
-                <Text style={[styles.score_text, {fontSize: 25}]}>No lesson was unlocked.</Text>
+                <Text style={[styles.score_text, {fontSize: 25, marginBottom: 100}]}>No lesson was unlocked.</Text>
             )}
             {(unlockedLessonTitle != null) && (
-                <Text style={[styles.score_text, {fontSize: 25}]}>{unlockedLessonTitle} was unlocked.</Text>
+                <Text style={[styles.score_text, {fontSize: 25, marginBottom: 100}]}>{unlockedLessonTitle} was unlocked.</Text>
             )}
+            {unlockedLessonId && (<View style={styles.next_lesson_button_container}>
+                <TouchableOpacity 
+                    style={[styles.home_button, {backgroundColor: "rgb(23, 23, 194)"}]}
+                    onPress={() => {
+                        router.push({
+                            pathname: 'lessonpage',
+                            params: {
+                                id: unlockedLessonId,
+                            }
+                        })
+                    }}
+                >
+                    <Text style={styles.home_button_text}>Next Lesson</Text>
+                </TouchableOpacity>
+            </View>)}
             <View style={styles.home_button_container}>
                 <TouchableOpacity 
                     style={styles.home_button}
@@ -54,6 +79,12 @@ const styles = StyleSheet.create({
         borderRadius: 16,
         fontSize: 40,
         marginTop: 24,
+    },
+    next_lesson_button_container: {
+        position: "absolute",
+        bottom: 120,
+        width: "100%",
+        alignItems: "center"
     },
     home_button_container: {
         position: "absolute",
