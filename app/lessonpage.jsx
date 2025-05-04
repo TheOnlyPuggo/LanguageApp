@@ -6,6 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const lessonpage = () => {
     const { id } = useLocalSearchParams();
+    const router = useRouter();
 
     let currentLesson;
     let lessonEnglishWords = [];
@@ -23,6 +24,13 @@ const lessonpage = () => {
 
     const [questionQueue, setQuestionQueue] = useState([]);
     const [currentQuestion, setCurrentQuestion] = useState(null);
+
+    const [questionShownAmount, setQuestionShownAmount] = useState(0);
+    const [questionCorrectAmount, setQuestionCorrectAmount] = useState(0);
+
+    const [answerText, setAnswerText] = useState("");
+    const [showAnswer, setShowAnswer] = useState(false)
+    const [userShowedAnswer, setUserShowedAnswer] = useState(false);
 
     async function unlockNewLesson() {
         const unlockId = currentLesson.unlock_lesson_id;
@@ -57,7 +65,7 @@ const lessonpage = () => {
         setCurrentQuestion(queue[0]);
     }, []);
 
-    function nextQuestion(updatedCurrentQuestion) {
+    function nextQuestion(updatedCurrentQuestion, questionCorrect = null) {
         let queue;
 
         if (updatedCurrentQuestion.HasShown == updatedCurrentQuestion.ShowAmount) {
@@ -69,8 +77,22 @@ const lessonpage = () => {
         queue.shift();
         if (queue.length == 0) {
             unlockNewLesson();
-            router.back();
-            return;
+            let unlockedLessonTitle = null;
+            
+            for (var lesson of LessonData) {
+                if (lesson.id == currentLesson.unlock_lesson_id) {
+                    unlockedLessonTitle = lesson.title;
+                    break;
+                }
+            }
+
+            router.replace({
+                pathname: 'congratspage',
+                params: {
+                    score: ((questionCorrectAmount / questionShownAmount) * 100).toFixed(2),
+                    unlockedLessonTitle: unlockedLessonTitle
+                }
+            });
         }
 
         let lessonTypeExists = false;
@@ -98,14 +120,6 @@ const lessonpage = () => {
         setShowAnswer(false);
     }
 
-    let lessonBody;
-
-    const router = useRouter();
-
-    const [answerText, setAnswerText] = useState("");
-    const [showAnswer, setShowAnswer] = useState(false)
-    const [userShowedAnswer, setUserShowedAnswer] = useState(false);
-
     useEffect(() => {
         if (answerText.toLowerCase().trim() === currentQuestion?.WordData.eng_word.toLowerCase()
             && currentQuestion?.LessonType == "WriteAnswerToEngType") {
@@ -120,8 +134,10 @@ const lessonpage = () => {
     }, [answerText, currentQuestion]);
 
     if (!currentLesson || !currentQuestion) {
-        return <Text>Loading...</Text>
+        return <View style={{flex: 1, backgroundColor: "rgba(255, 199, 116, 0.84)"}}></View>
     } 
+
+    let lessonBody;
 
     if (currentQuestion.LessonType == "LearnType") {
         lessonBody = (
@@ -214,18 +230,24 @@ const lessonpage = () => {
                     {(answerText.toLowerCase().trim() === currentQuestion.WordData.eng_word || userShowedAnswer) && (
                         <TouchableOpacity style={styles.interact_button} onPress={() => {
                             let updatedCurrentQuestion;
+                            let questionCorrect;                            
+
                             if (userShowedAnswer) {
                                 updatedCurrentQuestion = {
-                                    ...currentQuestion, 
+                                    ...currentQuestion,
                                 };
+                                questionCorrect = false;
+                                setQuestionShownAmount(questionShownAmount + 1);
                             } else {
                                 updatedCurrentQuestion = {
                                     ...currentQuestion, 
                                     HasShown: currentQuestion.HasShown + 1
                                 };
+                                setQuestionCorrectAmount(questionCorrectAmount + 1);
+                                setQuestionShownAmount(questionShownAmount + 1);
                             }
 
-                            nextQuestion(updatedCurrentQuestion);
+                            nextQuestion(updatedCurrentQuestion, questionCorrect);
                         }}>
                             <Text style={styles.interact_button_text}>Next</Text>
                         </TouchableOpacity>

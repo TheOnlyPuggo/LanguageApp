@@ -24,8 +24,9 @@ export default function RootLayout() {
 
     return (
         <Stack>
-            <Stack.Screen name="(tabs)" options={{headerShown: false}} />
-            <Stack.Screen name="lessonpage" options={{headerShown: false}} />
+            <Stack.Screen name="(tabs)" options={{headerShown: false, animation: "default"}} />
+            <Stack.Screen name="lessonpage" options={{headerShown: false, animation: "default"}} />
+            <Stack.Screen name="congratspage" options={{headerShown: false, animation: "default"}} />
         </Stack>
     )
 }
