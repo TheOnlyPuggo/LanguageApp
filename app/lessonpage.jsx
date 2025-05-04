@@ -77,20 +77,12 @@ const lessonpage = () => {
         queue.shift();
         if (queue.length == 0) {
             unlockNewLesson();
-            let unlockedLessonTitle = null;
-            
-            for (var lesson of LessonData) {
-                if (lesson.id == currentLesson.unlock_lesson_id) {
-                    unlockedLessonTitle = lesson.title;
-                    break;
-                }
-            }
 
             router.replace({
                 pathname: 'congratspage',
                 params: {
                     score: ((questionCorrectAmount / questionShownAmount) * 100).toFixed(2),
-                    unlockedLessonTitle: unlockedLessonTitle
+                    unlockedLessonId: currentLesson.unlock_lesson_id
                 }
             });
         }
@@ -260,7 +252,11 @@ const lessonpage = () => {
     return (
         <View style={{ flex: 1 }}>
             <View style={styles.title_container}>
-                <TouchableOpacity style={styles.back_button} onPress={() => router.back()}>
+                <TouchableOpacity style={styles.back_button} onPress={() => 
+                    router.push({
+                        pathname: '(tabs)',
+                    })
+                }>
                     <Image
                         style={styles.back_button_image}
                         source={require('../assets/back_arrow.png')}
