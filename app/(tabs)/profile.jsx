@@ -17,7 +17,7 @@ const profile = () => {
           pathname: 'congratspage',
           params: {
             score: 69,
-            unlockedLessonTitle: null
+            unlockedLessonId: 3
           }
         })}
       />
