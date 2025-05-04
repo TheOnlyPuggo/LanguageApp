@@ -137,5 +137,18 @@
         "locked": true,
         "unlock_lesson_id": null,
         "lesson_words": []
+    },
+    {
+        "id": 12,
+        "title": "Test Lesson",
+        "desc": "Used for testing",
+        "locked": false,
+        "unlock_lesson_id": null,
+        "lesson_words": [
+            {
+                "eng_word": "test",
+                "kky_word": "test"
+            }
+        ]
     }
 ]
