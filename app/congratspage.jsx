@@ -1,5 +1,4 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
 import {  useRouter, useLocalSearchParams } from 'expo-router'
 import LessonData from '../data/lessons.json';
 
@@ -8,7 +7,7 @@ const congratspage = () => {
     const router = useRouter();
 
     let unlockedLessonTitle = null;
-            
+    
     for (var lesson of LessonData) {
         if (lesson.id == unlockedLessonId) {
             unlockedLessonTitle = lesson.title;
@@ -18,17 +17,20 @@ const congratspage = () => {
 
     return (
         <View style={styles.body}>
-            <Text style={styles.congrats_text}>Congratulations!</Text>
-            <Text style={styles.score_text}>Score: {score}%</Text>
-            {(unlockedLessonTitle == null) && (
-                <Text style={[styles.score_text, {fontSize: 25, marginBottom: 100}]}>No lesson was unlocked.</Text>
-            )}
-            {(unlockedLessonTitle != null) && (
-                <Text style={[styles.score_text, {fontSize: 25, marginBottom: 100}]}>{unlockedLessonTitle} was unlocked.</Text>
-            )}
+            <Text style={styles.congrats_text}>Lesson Complete!</Text>
+            <View style={styles.stats_containier}>
+                <View style={styles.stats_inline}>
+                    <Text style={styles.stats_text}>Accuracy: </Text>
+                    <Text style={styles.stats_result_text}>{score}%</Text>
+                </View>
+                <View style={styles.stats_inline}>
+                    <Text style={styles.stats_text}>Unlocked: </Text>
+                    {unlockedLessonTitle && (<Text style={styles.stats_result_text}>{unlockedLessonTitle}</Text>)}
+                </View>
+            </View>
             {unlockedLessonId && (<View style={styles.next_lesson_button_container}>
                 <TouchableOpacity 
-                    style={[styles.home_button, {backgroundColor: "rgb(23, 23, 194)"}]}
+                    style={[styles.home_button, {backgroundColor: "rgb(97, 194, 23)"}]}
                     onPress={() => {
                         router.push({
                             pathname: 'lessonpage',
@@ -48,6 +50,7 @@ const congratspage = () => {
                         router.navigate({
                             pathname: '(tabs)',
                         })
+                        router.dismissAll();
                     }}
                 >
                     <Text style={styles.home_button_text}>Return Home</Text>
@@ -62,23 +65,41 @@ export default congratspage
 const styles = StyleSheet.create({
     body: {
         flex: 1,
-        backgroundColor: "rgba(255, 199, 116, 0.84)",
-        justifyContent: "center",
-        alignItems: "center"
+        backgroundColor: "rgba(253, 179, 68, 0.84)",
+        //alignItems: "center"
     },
     congrats_text: {
-        color: "rgb(255, 255, 255)",
+        color: "white",
         fontFamily: "Asap-Bold",
-        fontSize: 48,
-        textAlign: "center",
-    },
-    score_text: {
-        backgroundColor: "rgba(255, 182, 73, 0.84)",
-        color: "rgb(255, 255, 255)",
-        padding: 10,
-        borderRadius: 16,
         fontSize: 40,
-        marginTop: 24,
+        textAlign: "center",
+        marginTop: 100,
+        borderBottomWidth: 4,
+        borderBottomColor: "white",
+        paddingHorizontal: 8,
+        alignSelf: "center",
+    },
+    stats_containier: {
+        marginTop: 20,
+        marginLeft: 38,
+    },
+    stats_text: {
+        color: "white",
+        fontSize: 28,
+        fontFamily: "Asap-Bold",
+    },
+    stats_inline: {
+        flexDirection: "row",
+        alignItems: "center",
+        marginBottom: 20,
+    },
+    stats_result_text: {
+        fontSize: 28,
+        color: "white",
+        paddingHorizontal: 10,
+        backgroundColor: "rgba(255, 163, 24, 0.84)",
+        borderRadius: 8,
+        marginLeft: 12,
     },
     next_lesson_button_container: {
         position: "absolute",
@@ -93,13 +114,13 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     home_button: {
-        backgroundColor: "rgb(97, 194, 23)",
+        backgroundColor: "rgb(150, 150, 150)",
         alignSelf: "center",
-        borderRadius: 16,
+        borderRadius: 24,
         justifyContent: "center",
         alignItems: "center",
-        width: 300,
-        height: 70,
+        width: 250,
+        height: 60,
     },
     home_button_text: {
         color: "white",
