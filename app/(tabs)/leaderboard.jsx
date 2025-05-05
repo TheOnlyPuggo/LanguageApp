@@ -1,23 +1,52 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { useFocusEffect } from 'expo-router';
 import UserLeaderBar from '../../components/UserLeaderBar';
 import LeaderBoard from '../../data/leaderboard.json';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const leaderboard = () => {
   const d = new Date();
   let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 
-  let sortedUsers = LeaderBoard;
-  sortedUsers.sort(function(a, b){return b.points - a.points});
+  const [userPoints, setUserPoints] = useState(0);
+
+  const [sortedUsers, setSortedUsers] = useState([]);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      const getPointsAndSort = async () => {
+        const points = await AsyncStorage.getItem(`user_points`);
+        const parsed = points ? JSON.parse(points) : 0;
+
+        setUserPoints(parsed)
+
+        const users = LeaderBoard.filter(user => user.name !== "You");
+
+        users.push(
+          {
+            "id": "you",
+            "name": "You",
+            "points": parsed
+          }
+        );
+
+        users.sort(function(a, b){return b.points - a.points});
   
-  for (var i = 0; i < sortedUsers.length; i++) {
-    sortedUsers[i] = {
-      ...sortedUsers[i],
-      position: i + 1
-    }
-  }
+        const usersWithPositions = users.map((user, index) => ({
+          ...user,
+          position: index + 1
+        }));
+
+        setSortedUsers(usersWithPositions);
+      };
+  
+      getPointsAndSort();
+    }, [])
+  );
 
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <ScrollView>
         <Text style={styles.title}>LEADERBOARD</Text>
         <Text style={styles.date_text}>{months[d.getMonth()]} {d.getFullYear()}</Text>
@@ -54,5 +83,5 @@ const styles = StyleSheet.create({
     color: "#ffa32b",
     fontFamily: "Asap-Bold",
     marginBottom: 16,
-  }
+  },
 });
