@@ -58,7 +58,7 @@ const profile = () => {
         <View style={styles.user_info}>
           {!changingUsername && (<Text style={styles.username_text}>{username}</Text>)}
           {changingUsername && (<Text style={styles.username_text}>{newUsername}</Text>)}
-          <Text style={styles.points_text}>Points: {userPoints}</Text>
+          <Text style={styles.points_text}>Points: {userPoints.toLocaleString('en')}</Text>
         </View>
       </View>
       <View style={styles.options_box}>
