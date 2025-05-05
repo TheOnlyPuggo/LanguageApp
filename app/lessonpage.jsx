@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, View, Image, TextInput } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View, Image, TextInput, Platform, KeyboardAvoidingView, useWindowDimensions } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import LessonData from '../data/lessons.json';
@@ -8,6 +8,18 @@ import ProgressBar from "react-native-progress/Bar";
 const lessonpage = () => {
     const { id } = useLocalSearchParams();
     const router = useRouter();
+
+    const { width, height } = useWindowDimensions();
+
+    let textFontSize;
+    if (height > 750) {
+        textFontSize = 32;
+    } else if (height > 600) {
+        textFontSize = 16;
+    }
+
+
+    const dynamicStyles = getDynamicStyles(textFontSize);
 
     let currentLesson;
     let lessonEnglishWords = [];
@@ -154,19 +166,19 @@ const lessonpage = () => {
 
     if (currentQuestion.LessonType == "LearnType") {
         lessonBody = (
-            <View style={styles.lesson_body}>
-                <View style={styles.lesson_content}>
-                    <Text style={styles.lesson_text}>Kalaw Kawaw Ya</Text>
-                    <View style={styles.learn_word_container}>
-                        <Text style={styles.learn_word}>{currentQuestion.WordData.kky_word}</Text>
+            <View style={dynamicStyles.lesson_body}>
+                <View style={dynamicStyles.lesson_content}>
+                    <Text style={dynamicStyles.lesson_text}>Kalaw Kawaw Ya</Text>
+                    <View style={dynamicStyles.learn_word_container}>
+                        <Text style={dynamicStyles.learn_word}>{currentQuestion.WordData.kky_word}</Text>
                     </View>
-                    <Text style={styles.lesson_text}>English</Text>
-                    <View style={styles.learn_word_container}>
-                        <Text style={styles.learn_word}>{currentQuestion.WordData.eng_word}</Text>
+                    <Text style={dynamicStyles.lesson_text}>English</Text>
+                    <View style={dynamicStyles.learn_word_container}>
+                        <Text style={dynamicStyles.learn_word}>{currentQuestion.WordData.eng_word}</Text>
                     </View>
                 </View>
-                <View style={styles.user_interact}>
-                    <TouchableOpacity style={styles.interact_button} onPress={() => {
+                <View style={dynamicStyles.user_interact}>
+                    <TouchableOpacity style={dynamicStyles.interact_button} onPress={() => {
                         const updatedCurrentQuestion = {
                             ...currentQuestion, 
                             HasShown: currentQuestion.HasShown + 1
@@ -174,7 +186,7 @@ const lessonpage = () => {
 
                         nextQuestion(updatedCurrentQuestion);
                     }}>
-                        <Text style={styles.interact_button_text}>Next</Text>
+                        <Text style={dynamicStyles.interact_button_text}>Next</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -182,25 +194,25 @@ const lessonpage = () => {
     }
     else if (currentQuestion.LessonType == "WriteAnswerToEngType") {
         lessonBody = (
-            <View style={styles.lesson_body}>
-                <View style={styles.lesson_content}>
-                    <Text style={styles.lesson_text}>Translate this word into English</Text>
-                    <View style={styles.learn_word_container}>
-                        <Text style={styles.learn_word}>{currentQuestion.WordData.kky_word}</Text>
+            <View style={dynamicStyles.lesson_body}>
+                <View style={dynamicStyles.lesson_content}>
+                    <Text style={dynamicStyles.lesson_text}>Translate this word into English</Text>
+                    <View style={dynamicStyles.learn_word_container}>
+                        <Text style={dynamicStyles.learn_word}>{currentQuestion.WordData.kky_word}</Text>
                     </View>
                     {(showAnswer || userShowedAnswer) && (
                         <View>
-                            <Text style={styles.lesson_text}>Answer</Text>
-                            <View style={styles.learn_word_container}>
-                                <Text style={styles.learn_word}>{currentQuestion.WordData.eng_word}</Text>
+                            <Text style={dynamicStyles.lesson_text}>Answer</Text>
+                            <View style={dynamicStyles.learn_word_container}>
+                                <Text style={dynamicStyles.learn_word}>{currentQuestion.WordData.eng_word}</Text>
                             </View>
                         </View>
                     )}
                 </View>
-                <View style={styles.user_interact}>
+                <View style={dynamicStyles.user_interact}>
                     {answerText.toLowerCase().trim() !== currentQuestion.WordData.eng_word && !userShowedAnswer && (
                         <View>
-                            <View style={styles.text_field_answer_container}>
+                            <View style={dynamicStyles.text_field_answer_container}>
                                 <TextInput
                                     multiline={true}
                                     style={{fontSize: 32}}
@@ -209,15 +221,15 @@ const lessonpage = () => {
                                     placeholder="Type Answer..."
                                 />
                             </View>
-                            <TouchableOpacity style={[styles.interact_button, {backgroundColor: "rgb(194, 23, 23)"}]} onPress={() => setUserShowedAnswer(true)}>
-                                <Text style={styles.interact_button_text}>
+                            <TouchableOpacity style={[dynamicStyles.interact_button, {backgroundColor: "rgb(194, 23, 23)"}]} onPress={() => setUserShowedAnswer(true)}>
+                                <Text style={dynamicStyles.interact_button_text}>
                                     Show Answer
                                 </Text>
                             </TouchableOpacity>
                         </View>
                     )}
                     {answerText.toLowerCase().trim() === currentQuestion.WordData.eng_word && (
-                        <View style={[styles.text_field_answer_container, {borderColor: "rgb(44, 192, 18)"}]}>
+                        <View style={[dynamicStyles.text_field_answer_container, {borderColor: "rgb(44, 192, 18)"}]}>
                             <TextInput
                                 multiline={true}
                                 style={{fontSize: 32}}
@@ -229,7 +241,7 @@ const lessonpage = () => {
                         </View>
                     )}
                     {userShowedAnswer && (
-                        <View style={[styles.text_field_answer_container, {borderColor: "rgb(194, 23, 23)"}]}>
+                        <View style={[dynamicStyles.text_field_answer_container, {borderColor: "rgb(194, 23, 23)"}]}>
                         <TextInput
                             multiline={true}
                             style={{fontSize: 32}}
@@ -241,7 +253,7 @@ const lessonpage = () => {
                     </View>
                     )}
                     {(answerText.toLowerCase().trim() === currentQuestion.WordData.eng_word || userShowedAnswer) && (
-                        <TouchableOpacity style={styles.interact_button} onPress={() => {
+                        <TouchableOpacity style={dynamicStyles.interact_button} onPress={() => {
                             let updatedCurrentQuestion;
                             let questionCorrect;                            
 
@@ -262,7 +274,7 @@ const lessonpage = () => {
 
                             nextQuestion(updatedCurrentQuestion, questionCorrect);
                         }}>
-                            <Text style={styles.interact_button_text}>Next</Text>
+                            <Text style={dynamicStyles.interact_button_text}>Next</Text>
                         </TouchableOpacity>
                     )}
                 </View>
@@ -270,25 +282,25 @@ const lessonpage = () => {
         );
     } else if (currentQuestion.LessonType == "WriteAnswerToKKYType") {
         lessonBody = (
-            <View style={styles.lesson_body}>
-                <View style={styles.lesson_content}>
-                    <Text style={styles.lesson_text}>Translate this word into Kalaw Kawaw Ya</Text>
-                    <View style={styles.learn_word_container}>
-                        <Text style={styles.learn_word}>{currentQuestion.WordData.eng_word}</Text>
+            <View style={dynamicStyles.lesson_body}>
+                <View style={dynamicStyles.lesson_content}>
+                    <Text style={dynamicStyles.lesson_text}>Translate this word into Kalaw Kawaw Ya</Text>
+                    <View style={dynamicStyles.learn_word_container}>
+                        <Text style={dynamicStyles.learn_word}>{currentQuestion.WordData.eng_word}</Text>
                     </View>
                     {(showAnswer || userShowedAnswer) && (
                         <View>
-                            <Text style={styles.lesson_text}>Answer</Text>
-                            <View style={styles.learn_word_container}>
-                                <Text style={styles.learn_word}>{currentQuestion.WordData.kky_word}</Text>
+                            <Text style={dynamicStyles.lesson_text}>Answer</Text>
+                            <View style={dynamicStyles.learn_word_container}>
+                                <Text style={dynamicStyles.learn_word}>{currentQuestion.WordData.kky_word}</Text>
                             </View>
                         </View>
                     )}
                 </View>
-                <View style={styles.user_interact}>
+                <View style={dynamicStyles.user_interact}>
                     {answerText.toLowerCase().trim() !== currentQuestion.WordData.kky_word && !userShowedAnswer && (
                         <View>
-                            <View style={styles.text_field_answer_container}>
+                            <View style={dynamicStyles.text_field_answer_container}>
                                 <TextInput
                                     multiline={true}
                                     style={{fontSize: 32}}
@@ -297,15 +309,15 @@ const lessonpage = () => {
                                     placeholder="Type Answer..."
                                 />
                             </View>
-                            <TouchableOpacity style={[styles.interact_button, {backgroundColor: "rgb(194, 23, 23)"}]} onPress={() => setUserShowedAnswer(true)}>
-                                <Text style={styles.interact_button_text}>
+                            <TouchableOpacity style={[dynamicStyles.interact_button, {backgroundColor: "rgb(194, 23, 23)"}]} onPress={() => setUserShowedAnswer(true)}>
+                                <Text style={dynamicStyles.interact_button_text}>
                                     Show Answer
                                 </Text>
                             </TouchableOpacity>
                         </View>
                     )}
                     {answerText.toLowerCase().trim() === currentQuestion.WordData.kky_word && (
-                        <View style={[styles.text_field_answer_container, {borderColor: "rgb(44, 192, 18)"}]}>
+                        <View style={[dynamicStyles.text_field_answer_container, {borderColor: "rgb(44, 192, 18)"}]}>
                             <TextInput
                                 multiline={true}
                                 style={{fontSize: 32}}
@@ -317,7 +329,7 @@ const lessonpage = () => {
                         </View>
                     )}
                     {userShowedAnswer && (
-                        <View style={[styles.text_field_answer_container, {borderColor: "rgb(194, 23, 23)"}]}>
+                        <View style={[dynamicStyles.text_field_answer_container, {borderColor: "rgb(194, 23, 23)"}]}>
                         <TextInput
                             multiline={true}
                             style={{fontSize: 32}}
@@ -329,7 +341,7 @@ const lessonpage = () => {
                     </View>
                     )}
                     {(answerText.toLowerCase().trim() === currentQuestion.WordData.kky_word || userShowedAnswer) && (
-                        <TouchableOpacity style={styles.interact_button} onPress={() => {
+                        <TouchableOpacity style={dynamicStyles.interact_button} onPress={() => {
                             let updatedCurrentQuestion;
                             let questionCorrect;                            
 
@@ -350,7 +362,7 @@ const lessonpage = () => {
 
                             nextQuestion(updatedCurrentQuestion, questionCorrect);
                         }}>
-                            <Text style={styles.interact_button_text}>Next</Text>
+                            <Text style={dynamicStyles.interact_button_text}>Next</Text>
                         </TouchableOpacity>
                     )}
                 </View>
@@ -359,34 +371,47 @@ const lessonpage = () => {
     }
 
     return (
-        <View style={{ flex: 1 }}>
-            <View style={styles.title_container}>
-                <TouchableOpacity style={styles.back_button} onPress={() => 
-                    router.push({
-                        pathname: '(tabs)',
-                    })
-                }>
-                    <Image
-                        style={styles.back_button_image}
-                        source={require('../assets/back_arrow.png')}
-                    />
-                </TouchableOpacity>
-                <View style={styles.title_text_container}>
-                    <Text style={styles.title_text}>{currentLesson.title}</Text>
+        <KeyboardAvoidingView
+            style={{ flex: 1 }}
+            behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+            keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0}
+        >
+            <View style={{ flex: 1 }}>
+                <View style={dynamicStyles.title_container}>
+                    <TouchableOpacity style={dynamicStyles.back_button} onPress={() => 
+                        router.push({
+                            pathname: '(tabs)',
+                        })
+                    }>
+                        <Image
+                            style={dynamicStyles.back_button_image}
+                            source={require('../assets/back_arrow.png')}
+                        />
+                    </TouchableOpacity>
+                    <View style={dynamicStyles.title_text_container}>
+                        <Text style={dynamicStyles.title_text}>{currentLesson.title}</Text>
+                    </View>
+                    <View style={dynamicStyles.back_button_image} />
                 </View>
-                <View style={styles.back_button_image} />
+                <ProgressBar 
+                    style={dynamicStyles.progress_bar} 
+                    progress={0.3} 
+                    width={width}
+                    borderRadius={0}
+                    height={10}
+                />
+                {lessonBody}
             </View>
-            {lessonBody}
-        </View>
+        </KeyboardAvoidingView>
     )
 }
 
 export default lessonpage
 
-const styles = StyleSheet.create({
+const getDynamicStyles = (textFontSize) => StyleSheet.create({
     lesson_body: {
         flex: 1,
-        paddingVertical: 32,
+        paddingVertical: 10,
     },
     lesson_content: {
         alignItems: "center"
@@ -415,7 +440,7 @@ const styles = StyleSheet.create({
         height: 48,
     },
     lesson_text: {
-        fontSize: 32,
+        fontSize: textFontSize,
         marginBottom: 4,
         fontFamily: "Asap-Bold",
         textAlign: "center"
@@ -428,10 +453,10 @@ const styles = StyleSheet.create({
         borderRadius: 16,
         borderColor: "rgba(255, 199, 116, 0.84)",
         borderWidth: 3,
-        marginBottom: 32,
+        marginBottom: 20,
     },
     learn_word: {
-        fontSize: 36,
+        fontSize: textFontSize,
         fontFamily: "Asap"
     },
     user_interact: {
@@ -445,7 +470,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         width: 300,
-        height: 70
+        height: 70,
     },
     interact_button_text: {
         color: "white",
@@ -461,7 +486,10 @@ const styles = StyleSheet.create({
         padding: 10,
         height: 100,
         marginHorizontal: 8,
-        marginBottom: 32,
+        marginBottom: 20,
         justifyContent:  "center"
     },
+    progress_bar: {
+        alignSelf: "center",
+    }
 })
