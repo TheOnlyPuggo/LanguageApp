@@ -1,9 +1,11 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import {  useRouter, useLocalSearchParams } from 'expo-router'
+import { useRouter, useLocalSearchParams, useFocusEffect } from 'expo-router'
+import React, { useState } from 'react';
 import LessonData from '../data/lessons.json';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const congratspage = () => {
-    const { score, unlockedLessonId } = useLocalSearchParams();
+    const { score, pointsEarned, unlockedLessonId } = useLocalSearchParams();
     const router = useRouter();
 
     let unlockedLessonTitle = null;
@@ -22,6 +24,10 @@ const congratspage = () => {
                 <View style={styles.stats_inline}>
                     <Text style={styles.stats_text}>Accuracy: </Text>
                     <Text style={styles.stats_result_text}>{score}%</Text>
+                </View>
+                <View style={styles.stats_inline}>
+                    <Text style={styles.stats_text}>Points Earned: </Text>
+                    <Text style={styles.stats_result_text}>{pointsEarned}</Text>
                 </View>
                 <View style={styles.stats_inline}>
                     <Text style={styles.stats_text}>Unlocked: </Text>

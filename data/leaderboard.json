@@ -1,0 +1,42 @@
+[
+    {
+        "id": 1,
+        "name": "Ranni the Witch",
+        "points": 32529
+    },
+    {
+        "id": 2,
+        "name": "Starscourge Radahn",
+        "points": 24274
+    },
+    {
+        "id": 3,
+        "name": "Melina",
+        "points": 64295
+    },
+    {
+        "id": 4,
+        "name": "Rennala",
+        "points": 42000
+    },
+    {
+        "id": 5,
+        "name": "Freddy Fazbear",
+        "points": 8475
+    },
+    {
+        "id": 6,
+        "name": "Duolingo Bird",
+        "points": 12578
+    },
+    {
+        "id": 7,
+        "name": "Blaidd",
+        "points": 14257
+    },
+    {
+        "id": 8,
+        "name": "Jack Napier",
+        "points": 4285
+    }
+]

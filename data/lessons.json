@@ -5,6 +5,7 @@
         "desc": "Basic Vocabulary",
         "locked": false,
         "unlock_lesson_id": 2,
+        "max_points": 5000,
         "lesson_words": [
             {
                 "eng_word": "ankle",
@@ -30,6 +31,7 @@
         "desc": "Basic Vocabulary - 2",
         "locked": true,
         "unlock_lesson_id": 3,
+        "max_points": 5000,
         "lesson_words": [
             {
                 "eng_word": "blood",
@@ -55,6 +57,7 @@
         "desc": "Basic Vocabulary - 3",
         "locked": true,
         "unlock_lesson_id": null,
+        "max_points": 5000,
         "lesson_words": [
             {
                 "eng_word": "chest",
@@ -80,6 +83,7 @@
         "desc": "Introduction to Grammar",
         "locked": true,
         "unlock_lesson_id": null,
+        "max_points": 5000,
         "lesson_words": []
     },
     {
@@ -88,6 +92,7 @@
         "desc": "Introduction to Grammar - 2",
         "locked": true,
         "unlock_lesson_id": null,
+        "max_points": 5000,
         "lesson_words": []
     },
     {
@@ -96,6 +101,7 @@
         "desc": "Verb Conjugation",
         "locked": true,
         "unlock_lesson_id": null,
+        "max_points": 5000,
         "lesson_words": []
     },
     {
@@ -104,6 +110,7 @@
         "desc": "Verb Conjugation - 2",
         "locked": true,
         "unlock_lesson_id": null,
+        "max_points": 5000,
         "lesson_words": []
     },
     {
@@ -112,6 +119,7 @@
         "desc": "Verb Conjugation - 3",
         "locked": true,
         "unlock_lesson_id": null,
+        "max_points": 5000,
         "lesson_words": []
     },
     {
@@ -120,6 +128,7 @@
         "desc": "Basic Vocabulary - 4",
         "locked": true,
         "unlock_lesson_id": null,
+        "max_points": 5000,
         "lesson_words": []
     },
     {
@@ -128,6 +137,7 @@
         "desc": "Basic Vocabulary - 5",
         "locked": true,
         "unlock_lesson_id": null,
+        "max_points": 5000,
         "lesson_words": []
     },
     {
@@ -136,6 +146,7 @@
         "desc": "Basic Vocabulary - 6",
         "locked": true,
         "unlock_lesson_id": null,
+        "max_points": 5000,
         "lesson_words": []
     },
     {
@@ -144,6 +155,7 @@
         "desc": "Used for testing",
         "locked": false,
         "unlock_lesson_id": null,
+        "max_points": 5000,
         "lesson_words": [
             {
                 "eng_word": "test",

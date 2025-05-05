@@ -52,6 +52,18 @@ const lessonpage = () => {
         const unlockId = currentLesson.unlock_lesson_id;
         if (unlockId != null) {
             await AsyncStorage.setItem(`lesson_unlocked_${unlockId}`, JSON.stringify(true));
+            
+        }
+    }
+
+    async function addUserPoints(points) {
+        const currentPoints = await AsyncStorage.getItem(`user_points`);
+        if (currentPoints !== null) {
+            let parse = JSON.parse(currentPoints);
+
+            await AsyncStorage.setItem(`user_points`, JSON.stringify(parse + points));
+        } else {
+            await AsyncStorage.setItem(`user_points`, JSON.stringify(points));
         }
     }
 
@@ -105,11 +117,15 @@ const lessonpage = () => {
         queue.shift();
         if (queue.length == 0) {
             unlockNewLesson();
+            
+            let pointsEarned = Math.floor(currentLesson.max_points * (questionCorrectAmount / questionShownAmount))
+            addUserPoints(pointsEarned);
 
             router.replace({
                 pathname: 'congratspage',
                 params: {
                     score: ((questionCorrectAmount / questionShownAmount) * 100).toFixed(2),
+                    pointsEarned: pointsEarned,
                     unlockedLessonId: currentLesson.unlock_lesson_id
                 }
             });
