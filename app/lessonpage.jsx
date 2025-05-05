@@ -42,6 +42,8 @@ const lessonpage = () => {
     const [questionShownAmount, setQuestionShownAmount] = useState(0);
     const [questionCorrectAmount, setQuestionCorrectAmount] = useState(0);
 
+    const [answerQuestionsAmount, setAnswerQuestionsAmount] = useState(0);
+
     const [answerText, setAnswerText] = useState("");
     const [showAnswer, setShowAnswer] = useState(false)
     const [userShowedAnswer, setUserShowedAnswer] = useState(false);
@@ -55,6 +57,7 @@ const lessonpage = () => {
 
     useEffect(() => {
         let queue = [];
+        let tempAnswerQuestionsAmount = 0;
 
         for (const words of currentLesson.lesson_words) {
             queue.push(
@@ -73,6 +76,7 @@ const lessonpage = () => {
                     WordData: words,
                 }
             );
+            tempAnswerQuestionsAmount += 1 * queue[queue.length-1].ShowAmount;
             queue.push(
                 {
                     LessonType: "WriteAnswerToKKYType",
@@ -81,10 +85,12 @@ const lessonpage = () => {
                     WordData: words,
                 }
             );
+            tempAnswerQuestionsAmount += 1 * queue[queue.length-1].ShowAmount;
         }
 
         setQuestionQueue(queue);
         setCurrentQuestion(queue[0]);
+        setAnswerQuestionsAmount(tempAnswerQuestionsAmount);
     }, []);
 
     function nextQuestion(updatedCurrentQuestion, questionCorrect = null) {
@@ -395,10 +401,14 @@ const lessonpage = () => {
                 </View>
                 <ProgressBar 
                     style={dynamicStyles.progress_bar} 
-                    progress={0.3} 
+                    progress={questionCorrectAmount/answerQuestionsAmount} 
                     width={width}
                     borderRadius={0}
                     height={10}
+                    borderWidth={0}
+                    borderColor="rgba(255, 199, 116, 0.84)"
+                    unfilledColor="white"
+                    color="rgba(255, 163, 24, 0.84)"
                 />
                 {lessonBody}
             </View>

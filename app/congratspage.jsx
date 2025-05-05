@@ -48,7 +48,7 @@ const congratspage = () => {
                     style={styles.home_button}
                     onPress={() => {
                         router.navigate({
-                            pathname: '(tabs)',
+                            pathname: 'index',
                         });
                         router.dismissAll();
                     }}
