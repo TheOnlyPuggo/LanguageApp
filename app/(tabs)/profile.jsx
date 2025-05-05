@@ -68,7 +68,7 @@ const profile = () => {
           </TouchableOpacity>
         )}
         {changingUsername && (
-          <View style={styles.option}>
+          <View style={[styles.option, { paddingVertical: 7 }]}>
             <TextInput
               style={styles.username_input}
               placeholder="Enter New Username..."
@@ -80,6 +80,7 @@ const profile = () => {
                 changeUsername(newUsername);
                 setUsername(newUsername);
               }}
+              maxLength={10}
             />
           </View>
         )}
@@ -136,7 +137,8 @@ const styles = StyleSheet.create({
   },
   option_text: {
     fontSize: 24,
-    textAlign: "center"
+    textAlign: "center",
+    fontFamily: "Asap"
   },
   username_input: {
     fontSize: 24,

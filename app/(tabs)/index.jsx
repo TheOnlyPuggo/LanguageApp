@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ScrollView, StyleSheet, Text, View, StatusBar } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import LessonBar from '../../components/LessonBar';
 import LessonData from '../../data/lessons.json';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -43,7 +43,6 @@ const LearningPage = () => {
 
   return (
     <View>
-      <StatusBar hidden />
       <ScrollView>
         <Text style={styles.title}>LEARN</Text>
         {
