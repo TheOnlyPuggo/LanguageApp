@@ -28,8 +28,8 @@ const UserLeaderBar = (props) => {
     <View style={dynamicStyles.leader_bar}>
         <Text style={dynamicStyles.position_text}>#{props.position}</Text>
         <View>
-            {props.name != "You" && (<Text style={dynamicStyles.name_text}>{props.name}</Text>)}
-            {props.name == "You" && (<Text style={[dynamicStyles.name_text, { color: "white" }]}>{props.name}</Text>)}
+            {props.id != "user" && (<Text style={dynamicStyles.name_text}>{props.name}</Text>)}
+            {props.id == "user" && (<Text style={[dynamicStyles.name_text, { color: "white" }]}>{props.name}</Text>)}
             <Text style={dynamicStyles.points_text}>{props.points.toLocaleString('en')} Points</Text>
         </View>
     </View>

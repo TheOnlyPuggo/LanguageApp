@@ -140,11 +140,11 @@ const lessonpage = () => {
             i++;
         }
 
-        if (!lessonTypeExists && queue.length >= 3) {
+        if (!lessonTypeExists && queue.length >= 4) {
             if (Math.random() >= 0.2) {
-                let temp = queue[1];
-                queue[1] = queue[2];
-                queue[2] = temp;
+                let temp = queue[2];
+                queue[2] = queue[3];
+                queue[3] = temp;
             }
         }
         
@@ -401,9 +401,11 @@ const lessonpage = () => {
             <View style={{ flex: 1 }}>
                 <View style={dynamicStyles.title_container}>
                     <TouchableOpacity style={dynamicStyles.back_button} onPress={() => 
-                        router.navigate({
-                            pathname: '(tabs)',
-                        })
+                        {
+                            router.push({
+                                pathname: '(tabs)',
+                            });
+                        }
                     }>
                         <Image
                             style={dynamicStyles.back_button_image}

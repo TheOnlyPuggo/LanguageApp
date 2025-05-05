@@ -9,24 +9,32 @@ const leaderboard = () => {
   const d = new Date();
   let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 
-  const [userPoints, setUserPoints] = useState(0);
-
   const [sortedUsers, setSortedUsers] = useState([]);
 
   useFocusEffect(
     React.useCallback(() => {
+      let username = "";
+
+      const getUsername = async () => {
+        const retrievedUsername = await AsyncStorage.getItem(`user_name`);
+        if (retrievedUsername !== null) {
+          const parsed = JSON.parse(retrievedUsername);
+          username = parsed;
+        } else {
+          await AsyncStorage.setItem(`user_name`, JSON.stringify("User"))
+        }
+      }
+
       const getPointsAndSort = async () => {
         const points = await AsyncStorage.getItem(`user_points`);
         const parsed = points ? JSON.parse(points) : 0;
-
-        setUserPoints(parsed)
 
         const users = LeaderBoard.filter(user => user.name !== "You");
 
         users.push(
           {
-            "id": "you",
-            "name": "You",
+            "id": "user",
+            "name": username,
             "points": parsed
           }
         );
@@ -40,7 +48,8 @@ const leaderboard = () => {
 
         setSortedUsers(usersWithPositions);
       };
-  
+
+      getUsername();
       getPointsAndSort();
     }, [])
   );
@@ -54,6 +63,7 @@ const leaderboard = () => {
           sortedUsers.map((user) => (
             <UserLeaderBar
               key={user.id}
+              id={user.id}
               position={user.position}
               name={user.name}
               points={user.points}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useFonts } from 'expo-font';
@@ -18,7 +18,7 @@ const LessonBar = (props) => {
                         params: {
                             id: props.lesson.id,
                         }
-                    })
+                    });
                 }
             }>
                 <Text style={styles.button_text_unlocked}>Start</Text>
