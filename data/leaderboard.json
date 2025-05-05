@@ -2,7 +2,7 @@
     {
         "id": 1,
         "name": "Ranni the Witch",
-        "points": 32529
+        "points": 9999999
     },
     {
         "id": 2,
@@ -21,12 +21,12 @@
     },
     {
         "id": 5,
-        "name": "Freddy Fazbear",
+        "name": "Queen Marika",
         "points": 8475
     },
     {
         "id": 6,
-        "name": "Duolingo Bird",
+        "name": "Goldmask",
         "points": 12578
     },
     {
@@ -36,7 +36,22 @@
     },
     {
         "id": 8,
-        "name": "Jack Napier",
+        "name": "Sir Gideon Ofnir",
         "points": 4285
+    },
+    {
+        "id": 9,
+        "name": "Two Fingers",
+        "points": 35128
+    },
+    {
+        "id": 10,
+        "name": "Malenia",
+        "points": 3
+    },
+    {
+        "id": 11,
+        "name": "Nomadic Merchant",
+        "points": 20537
     }
 ]
