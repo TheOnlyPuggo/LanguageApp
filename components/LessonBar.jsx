@@ -13,7 +13,7 @@ const LessonBar = (props) => {
         button = (
             <TouchableOpacity style={styles.custom_button_unlocked} onPress={
                 () => {
-                    router.push({
+                    router.navigate({
                         pathname: 'lessonpage',
                         params: {
                             id: props.lesson.id,

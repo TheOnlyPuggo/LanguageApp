@@ -121,7 +121,7 @@ const lessonpage = () => {
             let pointsEarned = Math.floor(currentLesson.max_points * (questionCorrectAmount / questionShownAmount))
             addUserPoints(pointsEarned);
 
-            router.replace({
+            router.navigate({
                 pathname: 'congratspage',
                 params: {
                     score: ((questionCorrectAmount / questionShownAmount) * 100).toFixed(2),
@@ -401,7 +401,7 @@ const lessonpage = () => {
             <View style={{ flex: 1 }}>
                 <View style={dynamicStyles.title_container}>
                     <TouchableOpacity style={dynamicStyles.back_button} onPress={() => 
-                        router.push({
+                        router.navigate({
                             pathname: '(tabs)',
                         })
                     }>

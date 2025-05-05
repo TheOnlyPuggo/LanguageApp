@@ -33,7 +33,7 @@ const profile = () => {
       />
       <Button
         title="Congrats Page Temp Link"
-        onPress={() => router.push({
+        onPress={() => router.navigate({
           pathname: 'congratspage',
           params: {
             score: 69,
