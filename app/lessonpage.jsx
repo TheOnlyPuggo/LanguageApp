@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import LessonData from '../data/lessons.json';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import ProgressBar from "react-native-progress/Bar";
 
 const lessonpage = () => {
     const { id } = useLocalSearchParams();
