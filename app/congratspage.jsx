@@ -38,7 +38,7 @@ const congratspage = () => {
                 <TouchableOpacity 
                     style={[styles.home_button, {backgroundColor: "rgb(97, 194, 23)"}]}
                     onPress={() => {
-                        router.navigate({
+                        router.push({
                             pathname: 'lessonpage',
                             params: {
                                 id: unlockedLessonId,
@@ -53,7 +53,7 @@ const congratspage = () => {
                 <TouchableOpacity 
                     style={styles.home_button}
                     onPress={() => {
-                        router.navigate({
+                        router.push({
                             pathname: 'index',
                         });
                         router.dismissAll();

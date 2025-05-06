@@ -141,10 +141,11 @@ const lessonpage = () => {
         }
 
         if (!lessonTypeExists && queue.length >= 4) {
-            if (Math.random() >= 0.2) {
-                let temp = queue[2];
-                queue[2] = queue[3];
-                queue[3] = temp;
+            for (var i = 2; i < queue.length - 1; i++) {
+                let temp = queue[i];
+                let randomIndex = Math.floor(Math.random() * ((queue.length - 1) - i) + 2);
+                queue[i] = queue[randomIndex];
+                queue[randomIndex] = temp;
             }
         }
         
