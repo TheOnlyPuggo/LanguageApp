@@ -11,16 +11,6 @@ const lessonpage = () => {
 
     const { width, height } = useWindowDimensions();
 
-    let textFontSize;
-    if (height > 750) {
-        textFontSize = 32;
-    } else if (height > 600) {
-        textFontSize = 16;
-    }
-
-
-    const dynamicStyles = getDynamicStyles(textFontSize);
-
     let currentLesson;
     let lessonEnglishWords = [];
     let lessonKKYWords = [];
@@ -48,6 +38,25 @@ const lessonpage = () => {
     const [showAnswer, setShowAnswer] = useState(false)
     const [userShowedAnswer, setUserShowedAnswer] = useState(false);
 
+    let textFontSize;
+    if (height > 750) {
+        textFontSize = 32;
+    } else if (height > 600) {
+        textFontSize = 16;
+    }
+
+    let headerColor;
+    let progressBarColor;
+    if (currentLesson.review_lesson) {
+        headerColor="rgba(255, 171, 46, 0.84)";
+        progressBarColor="rgba(255, 153, 0, 0.84)";
+    } else {
+        headerColor="rgba(255, 199, 116, 0.84)";
+        progressBarColor="rgba(255, 171, 46, 0.84)";
+    }
+
+    const dynamicStyles = getDynamicStyles(textFontSize, headerColor);
+
     async function unlockNewLesson() {
         const unlockId = currentLesson.unlock_lesson_id;
         if (unlockId != null) {
@@ -72,32 +81,53 @@ const lessonpage = () => {
         let tempAnswerQuestionsAmount = 0;
 
         for (const words of currentLesson.lesson_words) {
-            queue.push(
-                {
-                    LessonType: "LearnType",
-                    ShowAmount: 1,
-                    HasShown: 0,
-                    WordData: words,
-                }
-            );
-            queue.push(
-                {
-                    LessonType: "WriteAnswerToEngType",
-                    ShowAmount: 2,
-                    HasShown: 0,
-                    WordData: words,
-                }
-            );
-            tempAnswerQuestionsAmount += 1 * queue[queue.length-1].ShowAmount;
-            queue.push(
-                {
-                    LessonType: "WriteAnswerToKKYType",
-                    ShowAmount: 2,
-                    HasShown: 0,
-                    WordData: words,
-                }
-            );
-            tempAnswerQuestionsAmount += 1 * queue[queue.length-1].ShowAmount;
+            if (!currentLesson.review_lesson) {
+                queue.push(
+                    {
+                        LessonType: "LearnType",
+                        ShowAmount: 1,
+                        HasShown: 0,
+                        WordData: words,
+                    }
+                );
+                queue.push(
+                    {
+                        LessonType: "WriteAnswerToEngType",
+                        ShowAmount: 2,
+                        HasShown: 0,
+                        WordData: words,
+                    }
+                );
+                tempAnswerQuestionsAmount += 1 * queue[queue.length-1].ShowAmount;
+                queue.push(
+                    {
+                        LessonType: "WriteAnswerToKKYType",
+                        ShowAmount: 2,
+                        HasShown: 0,
+                        WordData: words,
+                    }
+                );
+                tempAnswerQuestionsAmount += 1 * queue[queue.length-1].ShowAmount;
+            } else {
+                queue.push(
+                    {
+                        LessonType: "WriteAnswerToEngType",
+                        ShowAmount: 1,
+                        HasShown: 0,
+                        WordData: words,
+                    }
+                );
+                tempAnswerQuestionsAmount += 1 * queue[queue.length-1].ShowAmount;
+                queue.push(
+                    {
+                        LessonType: "WriteAnswerToKKYType",
+                        ShowAmount: 1,
+                        HasShown: 0,
+                        WordData: words,
+                    }
+                );
+                tempAnswerQuestionsAmount += 1 * queue[queue.length-1].ShowAmount;
+            }
         }
 
         setQuestionQueue(queue);
@@ -139,9 +169,16 @@ const lessonpage = () => {
             }
             i++;
         }
-
-        if (!lessonTypeExists && queue.length >= 4) {
+        
+        if (!lessonTypeExists && queue.length >= 4 && !currentLesson.review_lesson) {
             for (var i = 2; i < queue.length - 1; i++) {
+                let temp = queue[i];
+                let randomIndex = Math.floor(Math.random() * ((queue.length - 1) - i) + 2);
+                queue[i] = queue[randomIndex];
+                queue[randomIndex] = temp;
+            }
+        } else if (!lessonTypeExists && currentLesson.review_lesson) {
+            for (var i = 1; i < queue.length - 1; i++) {
                 let temp = queue[i];
                 let randomIndex = Math.floor(Math.random() * ((queue.length - 1) - i) + 2);
                 queue[i] = queue[randomIndex];
@@ -164,7 +201,9 @@ const lessonpage = () => {
         } else if (currentQuestion?.LessonType == "WriteAnswerToEngType") {
             for (var word of lessonEnglishWords) {
                 if (answerText.toLowerCase().trim() === word) {
-                    setUserShowedAnswer(true);
+                    if (!currentQuestion?.WordData.eng_word.toLowerCase().includes(answerText.toLowerCase().trim())) {
+                        setUserShowedAnswer(true);
+                    }
                 }
             }
         }
@@ -175,7 +214,9 @@ const lessonpage = () => {
         } else if (currentQuestion?.LessonType == "WriteAnswerToKKYType") {
             for (var word of lessonKKYWords) {
                 if (answerText.toLowerCase().trim() === word) {
-                    setUserShowedAnswer(true);
+                    if (!currentQuestion?.WordData.kky_word.toLowerCase().includes(answerText.toLowerCase().trim())) {
+                        setUserShowedAnswer(true);
+                    }
                 }
             }
         }
@@ -425,9 +466,8 @@ const lessonpage = () => {
                     borderRadius={0}
                     height={10}
                     borderWidth={0}
-                    borderColor="rgba(255, 199, 116, 0.84)"
                     unfilledColor="white"
-                    color="rgba(255, 163, 24, 0.84)"
+                    color={progressBarColor}
                 />
                 {lessonBody}
             </View>
@@ -437,7 +477,7 @@ const lessonpage = () => {
 
 export default lessonpage
 
-const getDynamicStyles = (textFontSize) => StyleSheet.create({
+const getDynamicStyles = (textFontSize, headerColor) => StyleSheet.create({
     lesson_body: {
         flex: 1,
         paddingVertical: 10,
@@ -448,7 +488,7 @@ const getDynamicStyles = (textFontSize) => StyleSheet.create({
     title_container: {
         flexDirection: "row",
         alignItems: "center",
-        backgroundColor: "rgba(255, 199, 116, 0.84)",
+        backgroundColor: headerColor,
         paddingVertical: 10,
     },
     title_text_container: {

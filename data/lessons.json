@@ -5,7 +5,8 @@
         "desc": "Basic Vocabulary",
         "locked": false,
         "unlock_lesson_id": 2,
-        "max_points": 5000,
+        "max_points": 3000,
+        "review_lesson": false,
         "lesson_words": [
             {
                 "eng_word": "ankle",
@@ -31,7 +32,8 @@
         "desc": "Basic Vocabulary - 2",
         "locked": true,
         "unlock_lesson_id": 3,
-        "max_points": 5000,
+        "max_points": 3000,
+        "review_lesson": false,
         "lesson_words": [
             {
                 "eng_word": "blood",
@@ -56,8 +58,9 @@
         "title": "Lesson 3",
         "desc": "Basic Vocabulary - 3",
         "locked": true,
-        "unlock_lesson_id": null,
-        "max_points": 5000,
+        "unlock_lesson_id": 4,
+        "max_points": 3000,
+        "review_lesson": false,
         "lesson_words": [
             {
                 "eng_word": "chest",
@@ -80,87 +83,180 @@
     {
         "id": 4,
         "title": "Lesson 4",
-        "desc": "Introduction to Grammar",
+        "desc": "Basic Vocabulary - Review",
         "locked": true,
         "unlock_lesson_id": null,
-        "max_points": 5000,
-        "lesson_words": []
+        "max_points": 12000,
+        "review_lesson": true,
+        "lesson_words": [
+            {
+                "eng_word": "ankle",
+                "kky_word": "danakuku"
+            },
+            {
+                "eng_word": "arm",
+                "kky_word": "geth"
+            },
+            {
+                "eng_word": "belly",
+                "kky_word": "maytha"
+            },
+            {
+                "eng_word": "wrist",
+                "kky_word": "pertha"
+            },
+            {
+                "eng_word": "blood",
+                "kky_word": "kulka"
+            },
+            {
+                "eng_word": "body",
+                "kky_word": "gamu"
+            },
+            {
+                "eng_word": "bone",
+                "kky_word": "ridh"
+            },
+            {
+                "eng_word": "bottom",
+                "kky_word": "kup"
+            },
+            {
+                "eng_word": "chest",
+                "kky_word": "da"
+            },
+            {
+                "eng_word": "chin",
+                "kky_word": "ibu"
+            },
+            {
+                "eng_word": "ears",
+                "kky_word": "kawral"
+            },
+            {
+                "eng_word": "elbow",
+                "kky_word": "kudu"
+            }
+        ]
     },
     {
         "id": 5,
         "title": "Lesson 5",
-        "desc": "Introduction to Grammar - 2",
+        "desc": "Introduction to Grammar",
         "locked": true,
         "unlock_lesson_id": null,
-        "max_points": 5000,
+        "max_points": 3000,
+        "review_lesson": false,
         "lesson_words": []
     },
     {
         "id": 6,
         "title": "Lesson 6",
-        "desc": "Verb Conjugation",
+        "desc": "Grammar - 1",
         "locked": true,
         "unlock_lesson_id": null,
-        "max_points": 5000,
+        "max_points": 3000,
+        "review_lesson": false,
         "lesson_words": []
     },
     {
         "id": 7,
         "title": "Lesson 7",
-        "desc": "Verb Conjugation - 2",
+        "desc": "Grammar - 2",
         "locked": true,
         "unlock_lesson_id": null,
-        "max_points": 5000,
+        "max_points": 3000,
+        "review_lesson": false,
         "lesson_words": []
     },
     {
         "id": 8,
         "title": "Lesson 8",
-        "desc": "Verb Conjugation - 3",
+        "desc": "Grammar - Review",
         "locked": true,
         "unlock_lesson_id": null,
-        "max_points": 5000,
+        "max_points": 12000,
+        "review_lesson": true,
         "lesson_words": []
     },
     {
         "id": 9,
         "title": "Lesson 9",
-        "desc": "Basic Vocabulary - 4",
+        "desc": "Verb Conjugation",
         "locked": true,
         "unlock_lesson_id": null,
-        "max_points": 5000,
+        "max_points": 3000,
+        "review_lesson": false,
         "lesson_words": []
     },
     {
         "id": 10,
         "title": "Lesson 10",
-        "desc": "Basic Vocabulary - 5",
+        "desc": "Verb Conjugation - 2",
         "locked": true,
         "unlock_lesson_id": null,
-        "max_points": 5000,
+        "max_points": 3000,
+        "review_lesson": false,
         "lesson_words": []
     },
     {
         "id": 11,
         "title": "Lesson 11",
-        "desc": "Basic Vocabulary - 6",
+        "desc": "Verb Conjugation - 3",
         "locked": true,
         "unlock_lesson_id": null,
-        "max_points": 5000,
+        "max_points": 3000,
+        "review_lesson": false,
         "lesson_words": []
     },
     {
         "id": 12,
-        "title": "Test Lesson",
-        "desc": "Used for testing",
-        "locked": false,
+        "title": "Lesson 12",
+        "desc": "Verb Conjugation - Review",
+        "locked": true,
         "unlock_lesson_id": null,
-        "max_points": 5000,
-        "lesson_words": [
-            {
-                "eng_word": "test",
-                "kky_word": "test"
-            }
-        ]
+        "max_points": 12000,
+        "review_lesson": true,
+        "lesson_words": []
+    },
+    {
+        "id": 13,
+        "title": "Lesson 13",
+        "desc": "Basic Vocabulary - 4",
+        "locked": true,
+        "unlock_lesson_id": null,
+        "max_points": 3000,
+        "review_lesson": false,
+        "lesson_words": []
+    },
+    {
+        "id": 14,
+        "title": "Lesson 14",
+        "desc": "Basic Vocabulary - 5",
+        "locked": true,
+        "unlock_lesson_id": null,
+        "max_points": 3000,
+        "review_lesson": false,
+        "lesson_words": []
+    },
+    {
+        "id": 15,
+        "title": "Lesson 15",
+        "desc": "Basic Vocabulary - 6",
+        "locked": true,
+        "unlock_lesson_id": null,
+        "max_points": 3000,
+        "review_lesson": false,
+        "lesson_words": []
+    },
+    {
+        "id": 16,
+        "title": "Lesson 16",
+        "desc": "Basic Vocabulary - Review 2",
+        "locked": true,
+        "unlock_lesson_id": null,
+        "max_points": 12000,
+        "review_lesson": true,
+        "lesson_words": []
     }
 ]
