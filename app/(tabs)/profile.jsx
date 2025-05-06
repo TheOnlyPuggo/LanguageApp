@@ -81,6 +81,7 @@ const profile = () => {
                 setUsername(newUsername);
               }}
               maxLength={10}
+              placeholderTextColor={"grey"}
             />
           </View>
         )}

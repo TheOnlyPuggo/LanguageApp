@@ -283,6 +283,7 @@ const lessonpage = () => {
                                     onChangeText={setAnswerText}
                                     value={answerText}
                                     placeholder="Type Answer..."
+                                    placeholderTextColor={"grey"}
                                 />
                             </View>
                             <TouchableOpacity style={[dynamicStyles.interact_button, {backgroundColor: "rgb(194, 23, 23)"}]} onPress={() => setUserShowedAnswer(true)}>
@@ -301,6 +302,7 @@ const lessonpage = () => {
                                 value={answerText}
                                 placeholder="Type Answer..."
                                 editable={false}
+                                placeholderTextColor={"grey"}
                             />
                         </View>
                     )}
@@ -313,6 +315,7 @@ const lessonpage = () => {
                             value={answerText}
                             placeholder="Type Answer..."
                             editable={false}
+                            placeholderTextColor={"grey"}
                         />
                     </View>
                     )}
@@ -371,6 +374,7 @@ const lessonpage = () => {
                                     onChangeText={setAnswerText}
                                     value={answerText}
                                     placeholder="Type Answer..."
+                                    placeholderTextColor={"grey"}
                                 />
                             </View>
                             <TouchableOpacity style={[dynamicStyles.interact_button, {backgroundColor: "rgb(194, 23, 23)"}]} onPress={() => setUserShowedAnswer(true)}>
@@ -389,6 +393,7 @@ const lessonpage = () => {
                                 value={answerText}
                                 placeholder="Type Answer..."
                                 editable={false}
+                                placeholderTextColor={"grey"}
                             />
                         </View>
                     )}
@@ -401,6 +406,7 @@ const lessonpage = () => {
                             value={answerText}
                             placeholder="Type Answer..."
                             editable={false}
+                            placeholderTextColor={"grey"}
                         />
                     </View>
                     )}
